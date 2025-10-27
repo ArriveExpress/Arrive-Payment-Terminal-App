@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    tools:ignore="InvalidNavigation">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.arrive.terminal.presentation.features.login.LoginFragment" />
+
+    <fragment
+        android:id="@+id/driverFragment"
+        android:name="com.arrive.terminal.presentation.features.driver.DriverFragment" />
+
+    <fragment
+        android:id="@+id/ridesFragment"
+        android:name="com.arrive.terminal.presentation.features.rides.RidesFragment" />
+
+    <fragment
+        android:id="@+id/paymentMethodFragment"
+        android:name="com.arrive.terminal.presentation.features.payment_method.PaymentMethodFragment" />
+
+    <fragment
+        android:id="@+id/paymentAccountFragment"
+        android:name="com.arrive.terminal.presentation.features.payment_account.PaymentAccountFragment" />
+
+    <fragment
+        android:id="@+id/paymentSuccessFragment"
+        android:name="com.arrive.terminal.presentation.features.payment_success.PaymentResultFragment" />
+
+    <fragment
+        android:id="@+id/noPriceFragment"
+        android:name="com.arrive.terminal.presentation.features.no_price.NoPriceFragment" />
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.arrive.terminal.presentation.features.account.AccountFragment" />
+
+    <fragment
+        android:id="@+id/accountLoginFragment"
+        android:name="com.arrive.terminal.presentation.features.login_account.AccountLoginFragment" />
+
+    <fragment
+        android:id="@+id/enterCardFragment"
+        android:name="com.arrive.terminal.presentation.features.enter_card.EnterCardFragment" />
+
+</navigation>

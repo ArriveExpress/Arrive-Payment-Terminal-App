@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:paddingVertical="16dp"
+    tools:ignore="ContentDescription">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="60dp">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/Text.Default.White"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="27sp"
+            tools:text="Select card or enter new" />
+
+        <include
+            android:id="@+id/doubleInput"
+            layout="@layout/layout_double_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_card" />
+
+        <com.arrive.terminal.core.ui.view.AppButtonView
+            android:id="@+id/cancel"
+            style="@style/Button.Simple"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_button_height_secondary"
+            android:layout_marginTop="16dp"
+            app:text="@string/payment_method_cancel" />
+
+    </LinearLayout>
+
+</ScrollView>

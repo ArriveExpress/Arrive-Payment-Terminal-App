@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:ignore="ContentDescription">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/topBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/background_arc"
+            app:layout_constraintBottom_toBottomOf="@id/topContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/topContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="24dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@id/bottomContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <ImageView
+                android:id="@+id/iconSuccess"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_success" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/Text.Default.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="@string/success_payment_successful"
+                android:textSize="29sp" />
+
+            <TextView
+                android:id="@+id/price"
+                style="@style/Text.Default.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="$7.09"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/message"
+                style="@style/Text.Default.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Invalid card number"
+                android:textSize="17sp"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topContainer">
+
+            <TextView
+                android:id="@+id/disclaimer"
+                style="@style/Text.Default.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                tools:text="Returning to homescreen in 10 seconds" />
+
+            <TextView
+                android:id="@+id/poweredBy"
+                style="@style/Text.Default.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:drawablePadding="6dp"
+                android:text="Powered by"
+                android:textSize="13sp"
+                android:visibility="gone"
+                app:drawableEndCompat="@drawable/ic_logo" />
+
+            <com.arrive.terminal.core.ui.view.AppButtonView
+                android:id="@+id/tryAgain"
+                style="@style/Button.White"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/default_button_height"
+                android:layout_marginTop="30dp"
+                android:visibility="gone"
+                app:text="Try again?"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

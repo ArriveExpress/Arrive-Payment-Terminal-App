@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primary">#3EC65D</color>
+    <color name="backgroundPrimary">#000000</color>
+    <color name="error">#F05E0C</color>
+    <color name="backgroundContainer">#1C1C1C</color>
+    <color name="backgroundUnselected">#707070</color>
+    <color name="backgroundItem">#363636</color>
+
+    <color name="paymentSuccess">@color/primary</color>
+    <color name="paymentError">#FF6464</color>
+    <color name="paymentDecline">#AFAFAF</color>
+
+    <color name="textWhite">#ffffff</color>
+    <color name="textBlack">#000</color>
+    <color name="textHint">#AFAFAF</color>
+    <color name="textGray">#AFAFAF</color>
+
+    <color name="buttonWhite">#ffffff</color>
+
+    <!-- Neutral -->
+    <color name="neutral_900">#343434</color>
+    <color name="neutral_700">#7D7D7D</color>
+    <color name="neutral_600">#8D8D8D</color>
+    <color name="neutral_400">#CECECE</color>
+    <color name="neutral_300">#DFDFDF</color>
+    <color name="neutral_0">#FFFFFF</color>
+
+</resources>

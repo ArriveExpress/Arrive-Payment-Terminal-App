@@ -1,0 +1,11 @@
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="2200"
+    android:toXDelta="100%"
+    android:toYDelta="0%"
+    android:fillAfter="true"
+    android:fillBefore="false"
+    android:interpolator="@android:anim/bounce_interpolator"
+    android:repeatCount="-1"
+    android:repeatMode="reverse"
+    android:fromXDelta="0%"
+    android:fromYDelta="0%"/>

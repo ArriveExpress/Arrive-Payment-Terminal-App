@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!--                   pos permission                     -->
+    <uses-permission android:name="com.pos.permission.ACCESSORY_DATETIME" />
+    <uses-permission android:name="com.pos.permission.ACCESSORY_LED" />
+    <uses-permission android:name="com.pos.permission.ACCESSORY_BEEP" />
+    <uses-permission android:name="com.pos.permission.ACCESSORY_RFREGISTER" />
+    <uses-permission android:name="com.pos.permission.CARD_READER_ICC" />
+    <uses-permission android:name="com.pos.permission.CARD_READER_PICC" />
+    <uses-permission android:name="com.pos.permission.CARD_READER_MAG" />
+    <uses-permission android:name="com.pos.permission.COMMUNICATION" />
+    <uses-permission android:name="com.pos.permission.PRINTER" />
+    <uses-permission android:name="com.pos.permission.SECURITY" />
+    <uses-permission android:name="com.pos.permission.EMVCORE" />
+
+    <application
+        android:name=".presentation.app.TerminalApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".presentation.host.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name="com.example.card_payment.TransActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="com.example.card_payment.TransInitActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="com.example.card_payment.TransResultActivity"
+            android:exported="true" />
+
+    </application>
+
+</manifest>

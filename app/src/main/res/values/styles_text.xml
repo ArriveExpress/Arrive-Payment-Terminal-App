@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Text -->
+    <style name="Text" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/dm_sans</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/text_color_selector</item>
+    </style>
+
+    <!-- Title -->
+
+    <!-- Body -->
+    <style name="Text.Body">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Text.Body.01">
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">24dp</item>
+    </style>
+
+    <style name="Text.Default" parent="Text" />
+
+    <style name="Text.Default.White">
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Default.Black">
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Default.Gray">
+        <item name="android:textColor">@color/textGray</item>
+    </style>
+
+    <style name="Text.Variant">
+        <item name="android:textSize">17sp</item>
+        <item name="android:background">@drawable/background_rectangle_radius_19_selector</item>
+        <item name="android:textColor">@color/text_color_switch_selector</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Button" />
+
+    <style name="Button.Arrow">
+        <item name="android:background">@drawable/circle_primary</item>
+        <item name="srcCompat">@drawable/ic_arrow_right</item>
+        <item name="android:foreground">@drawable/selectable_button_circle</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="Button.White">
+        <item name="backgroundColor">@color/buttonWhite</item>
+        <item name="elevation">0dp</item>
+        <item name="textColor">@color/textBlack</item>
+        <item name="cornerRadius">36dp</item>
+        <item name="paddingHorizontal">30dp</item>
+        <item name="progressColor">@color/primary</item>
+    </style>
+
+    <style name="Button.Primary">
+        <item name="backgroundColor">@color/primary</item>
+        <item name="elevation">0dp</item>
+        <item name="textColor">@color/textBlack</item>
+        <item name="cornerRadius">36dp</item>
+        <item name="paddingHorizontal">30dp</item>
+        <item name="progressColor">@color/white</item>
+    </style>
+
+    <style name="Button.Simple">
+        <item name="backgroundColor">@android:color/transparent</item>
+        <item name="elevation">0dp</item>
+        <item name="textColor">@color/textWhite</item>
+        <item name="cornerRadius">36dp</item>
+        <item name="paddingHorizontal">0dp</item>
+        <item name="progressColor">@color/white</item>
+        <item name="underline">true</item>
+    </style>
+
+    <!-- Call to Action -->
+
+    <!-- Caption -->
+
+    <!-- Strikethrough -->
+
+</resources>

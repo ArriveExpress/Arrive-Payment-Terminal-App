@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="default_button_height">62dp</dimen>
+    <dimen name="default_button_height_secondary">58dp</dimen>
+
+    <dimen name="default_horizontal_padding">24dp</dimen>
+
+</resources>

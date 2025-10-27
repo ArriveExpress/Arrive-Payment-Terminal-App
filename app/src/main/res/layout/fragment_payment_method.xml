@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:paddingVertical="16dp"
+    tools:ignore="ContentDescription">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="30dp"
+        android:paddingTop="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/priceContainer"
+            android:layout_width="0dp"
+            android:layout_height="190dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:constraint_referenced_ids="price,pickUpInfo,showBreakdown"
+                app:flow_verticalGap="6dp"
+                app:flow_verticalStyle="packed"
+                app:flow_wrapMode="chain"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/price"
+                style="@style/Text.Default.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="64sp"
+                tools:text="$7.08" />
+
+            <TextView
+                android:id="@+id/pickUpInfo"
+                style="@style/Text.Default.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="24sp"
+                tools:text="pick up: Street number #4" />
+
+            <TextView
+                android:id="@+id/showBreakdown"
+                style="@style/Text.Default.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:drawablePadding="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingVertical="4dp"
+                android:text="@string/payment_method_show_breakdown"
+                android:textSize="21sp"
+                app:drawableStartCompat="@drawable/ic_breakdown" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/breakdownContainer"
+            android:layout_width="0dp"
+            android:layout_height="190dp"
+            android:background="@drawable/background_container"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/priceElements"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/priceElementsValues"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/priceElements"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/totalTitle"
+                style="@style/Text.Default.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/payment_method_total"
+                android:textSize="21sp"
+                app:layout_constraintBottom_toTopOf="@id/priceTotal"
+                app:layout_constraintEnd_toEndOf="@id/priceTotal"
+                app:layout_constraintStart_toStartOf="@id/priceTotal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/priceTotal"
+                style="@style/Text.Default.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="34dp"
+                android:textSize="50sp"
+                app:layout_constraintBottom_toTopOf="@id/feesDescription"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/totalTitle"
+                tools:text="$27.08" />
+
+            <TextView
+                android:id="@+id/feesDescription"
+                style="@style/Text.Default.Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/payment_method_fees"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/priceTotal"
+                app:layout_constraintStart_toStartOf="@id/priceTotal"
+                app:layout_constraintTop_toBottomOf="@id/priceTotal" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/topBarrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="breakdownContainer,priceContainer" />
+
+        <include
+            android:id="@+id/doubleInput"
+            layout="@layout/layout_double_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topBarrier" />
+
+        <com.arrive.terminal.core.ui.view.AppButtonView
+            android:id="@+id/payWithCard"
+            style="@style/Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/default_button_height"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/doubleInput"
+            app:text="@string/method_pay_with_card" />
+
+        <com.arrive.terminal.core.ui.view.AppButtonView
+            android:id="@+id/cancel"
+            style="@style/Button.Simple"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_button_height_secondary"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/payWithCard"
+            app:text="@string/payment_method_cancel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

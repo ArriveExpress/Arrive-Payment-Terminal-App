@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingDefaultResource">
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@id/icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="$15.00" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleX="1.7"
+            android:scaleY="1.7"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_repeatCount="1000"
+            app:lottie_repeatMode="restart"
+            app:lottie_rawRes="@raw/lottie_pulsating" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_insert_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintWidth_percent="0.6" />
+
+        <TextView
+            android:id="@+id/manual"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/background_rectangle_radius_36_color_white"
+            android:gravity="center"
+            android:text="Manual"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/background_rectangle_radius_36_color_white"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_margin="20dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:orientation="vertical">-->
+
+    <!--        <RelativeLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_centerHorizontal="true"-->
+    <!--            android:layout_margin="20dp"-->
+    <!--            android:gravity="center"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--            <ImageView-->
+    <!--                android:id="@+id/iv_present"-->
+    <!--                android:layout_width="150dp"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:adjustViewBounds="true"-->
+    <!--                android:gravity="center"-->
+    <!--                android:scaleType="centerInside"-->
+    <!--                android:src="@drawable/trans_card" />-->
+
+    <!--            <ImageView-->
+    <!--                android:id="@+id/iv_present_hand"-->
+    <!--                android:layout_width="50dp"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_centerInParent="true"-->
+    <!--                android:adjustViewBounds="true"-->
+    <!--                android:gravity="center"-->
+    <!--                android:scaleType="centerInside"-->
+    <!--                android:src="@drawable/hand" />-->
+    <!--        </RelativeLayout>-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/tvMessage1"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginTop="30dp"-->
+    <!--            android:gravity="center"-->
+    <!--            android:textColor="@color/black"-->
+    <!--            android:textSize="28sp"-->
+    <!--            android:textStyle="bold" />-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_centerHorizontal="true"-->
+    <!--            android:layout_marginTop="20dp"-->
+    <!--            android:background="@drawable/bg_gray_stroke"-->
+    <!--            android:gravity="center"-->
+    <!--            android:orientation="vertical"-->
+    <!--            android:padding="20dp">-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/tv_amount"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginVertical="15dp"-->
+    <!--                android:gravity="center"-->
+    <!--                android:textColor="@color/black"-->
+    <!--                android:textSize="25sp"-->
+    <!--                android:textStyle="bold"-->
+    <!--                tools:text="Amount $20" />-->
+    <!--        </LinearLayout>-->
+
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_above="@+id/tv_cancel"-->
+    <!--        android:layout_marginLeft="20dp"-->
+    <!--        android:layout_marginRight="20dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        <ImageView-->
+
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:adjustViewBounds="true"-->
+    <!--            android:gravity="center"-->
+    <!--            android:scaleType="centerInside"-->
+    <!--            android:src="@drawable/dot0" />-->
+
+    <!--        <ImageView-->
+
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:adjustViewBounds="true"-->
+    <!--            android:gravity="center"-->
+    <!--            android:scaleType="centerInside"-->
+    <!--            android:src="@drawable/dot0" />-->
+
+    <!--        <ImageView-->
+
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:adjustViewBounds="true"-->
+    <!--            android:gravity="center"-->
+    <!--            android:scaleType="centerInside"-->
+    <!--            android:src="@drawable/dot0" />-->
+
+    <!--        <ImageView-->
+
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:adjustViewBounds="true"-->
+    <!--            android:gravity="center"-->
+    <!--            android:scaleType="centerInside"-->
+    <!--            android:src="@drawable/dot0" />-->
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/ll_light"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_above="@+id/tv_cancel"-->
+    <!--        android:layout_marginLeft="20dp"-->
+    <!--        android:layout_marginRight="20dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        <ImageView-->
+
+    <!--            android:id="@+id/iv1"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:adjustViewBounds="true"-->
+    <!--            android:gravity="center"-->
+    <!--            android:scaleType="centerInside"-->
+    <!--            android:src="@drawable/dot1" />-->
+
+    <!--        <ImageView-->
+
+    <!--            android:id="@+id/iv2"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:adjustViewBounds="true"-->
+    <!--            android:gravity="center"-->
+    <!--            android:scaleType="centerInside"-->
+    <!--            android:src="@drawable/dot2" />-->
+
+    <!--        <ImageView-->
+
+    <!--            android:id="@+id/iv3"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:adjustViewBounds="true"-->
+    <!--            android:gravity="center"-->
+    <!--            android:scaleType="centerInside"-->
+    <!--            android:src="@drawable/dot3" />-->
+
+    <!--        <ImageView-->
+
+    <!--            android:id="@+id/iv4"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:adjustViewBounds="true"-->
+    <!--            android:gravity="center"-->
+    <!--            android:scaleType="centerInside"-->
+    <!--            android:src="@drawable/dot4" />-->
+    <!--    </LinearLayout>-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_cancel"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_marginStart="20dp"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:layout_marginEnd="20dp"-->
+    <!--        android:layout_marginBottom="20dp"-->
+    <!--        android:background="@drawable/blue_btn_light"-->
+    <!--        android:gravity="center"-->
+    <!--        android:padding="12dp"-->
+    <!--        android:text="Cancel"-->
+    <!--        android:textColor="@color/primary"-->
+    <!--        android:textSize="18sp"-->
+    <!--        android:textStyle="bold" />-->

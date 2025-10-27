@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">Arrive Live</string>
+
+    <string name="login_driver_title">Driver Login</string>
+    <string name="login_action">Login</string>
+
+    <string name="rides_confirm_your_ride">Confirm your ride</string>
+    <string name="rides_item_different_ride">Different Ride • Flagged Trip</string>
+
+    <string name="method_amount_to_pay">Amount to pay:</string>
+    <string name="method_pay_with_card">Pay with card</string>
+    <string name="method_select_payment_method">Select payment method</string>
+    <string name="method_cancel">Cancel</string>
+    <string name="method_put_on_account">Put on Account</string>
+
+    <string name="error_network_message">No internet connection</string>
+    <string name="error_something_bad_happen">Something bad happen. Try again later</string>
+    <string name="error_field_empty">Please fill the field</string>
+    <string name="error_please_wait">Please wait</string>
+    <string name="common_try_again">Try again</string>
+    <string name="success_return_to_main_screen">Return to Main Screen</string>
+    <string name="success_your_payment_has_been_processed">Your payment has been processed</string>
+    <string name="success_payment_successful">Payment Successful</string>
+    <string name="success_payment_declined">Payment Successful</string>
+    <string name="success_payment_error">Payment Successful</string>
+    <string name="account_payment">Account payment</string>
+    <string name="account_confirm_payment">Confirm payment</string>
+    <string name="account_back">Back</string>
+    <string name="login_enter_driver_id">Enter Driver ID</string>
+
+    <string name="account_number_hint">Account number</string>
+    <string name="account_number_pin">PIN</string>
+    <string name="rides_driver_id">Arrive ID %s</string>
+    <string name="driver_pay_for_your_ride">$  Pay for your Ride</string>
+    <string name="common_powered_by_arrive_express">powered by Arrive Express</string>
+    <string name="no_price_set_title">No Price Set</string>
+    <string name="no_rice_message">Please ask the driver to add a price to the trip</string>
+    <string name="no_price_action">Done</string>
+    <string name="driver_message">Thank you for using Arrive Express</string>
+    <string name="driver_my_account">My Account</string>
+    <string name="driver_title">Welcome to</string>
+    <string name="payment_method_show_breakdown">Show breakdown</string>
+    <string name="payment_method_total">Total</string>
+    <string name="payment_method_fees">Includes credit card fees</string>
+    <string name="payment_method_cancel">Cancel</string>
+    <string name="common_hint_account_number">Account number</string>
+    <string name="common_hint_pin">Pin</string>
+    <string name="account_arrive_miles">Arrive Miles</string>
+    <string name="account_balance">Balance</string>
+    <string name="account_refill_account">Refill account</string>
+    <string name="account_arrive_wallet">Arrive wallet</string>
+    <string name="account_add_new">Add new</string>
+    <string name="item_card_default">Default</string>
+    <string name="common_hint_credit_card">Credit Card</string>
+    <string name="common_hint_card_exp">Exp  /</string>
+    <string name="payment_result_disclaimer">Returning to homescreen in %s seconds</string>
+    <string name="enter_card_tap_or_insert">Tap or insert</string>
+    <string name="account_refill_success_message">You added %1$s amount to your account!</string>
+
+</resources>

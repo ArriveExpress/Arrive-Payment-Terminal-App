@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/default_horizontal_padding"
+    android:paddingVertical="24dp"
+    tools:ignore="ContentDescription">
+
+    <com.arrive.terminal.core.ui.view.AppInputView
+        android:id="@+id/inputNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
+    <com.arrive.terminal.core.ui.view.AppInputView
+        android:id="@+id/inputPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
+    <com.arrive.terminal.core.ui.view.AppButtonView
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_button_height"
+        android:layout_marginTop="20dp"
+        app:text="@string/account_confirm_payment" />
+
+    <com.arrive.terminal.core.ui.view.AppButtonView
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_button_height"
+        android:layout_marginTop="8dp"
+        app:backgroundColor="@android:color/transparent"
+        app:elevation="0dp"
+        app:text="@string/account_back"
+        app:textColor="@color/neutral_900" />
+
+</LinearLayout>
