@@ -6,18 +6,108 @@
         <item name="android:fontFamily">@font/dm_sans</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textColor">@color/text_color_selector</item>
+        <item name="android:letterSpacing">-0.035</item>
     </style>
 
     <!-- Title -->
+    <style name="Text.Title">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Title.Big">
+        <item name="android:textSize">104sp</item>
+
+    </style>
+
+    <style name="Text.Title.Normal">
+        <item name="android:textSize">35sp</item>
+    </style>
+
+    <style name="Text.Title.Small">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!-- SubTitle -->
+    <style name="Text.Subtitle">
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Subtitle.Big">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Subtitle.Normal">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Subtitle.Small">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Subtitle.ExtraSmall">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Subtitle.TinyBold">
+        <item name="fontFamily">@font/dm_sans_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Subtitle.TinyNormal">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
 
     <!-- Body -->
     <style name="Text.Body">
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="Text.Body.01">
+    <style name="Text.Body.Big">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">42sp</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Body.Normal">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Body.Medium">
+        <item name="fontFamily">@font/dm_sans_regular</item>
         <item name="android:textSize">16sp</item>
-        <item name="lineHeight">24dp</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Body.Small">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Body.ExtraSmall">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="Text.Body.Tiny">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/textGray</item>
     </style>
 
     <style name="Text.Default" parent="Text" />
@@ -34,11 +124,20 @@
         <item name="android:textColor">@color/textGray</item>
     </style>
 
+    <style name="Text.Default.Small">
+        <item name="android:textSize">11sp</item>
+        <item name="android:background">@drawable/background_rounded_textview</item>
+        <item name="android:textColor">@color/textWhite</item>
+        <item name="android:gravity">center</item>
+        <item name="fontFamily">@font/dm_sans_regular</item>
+    </style>
+
     <style name="Text.Variant">
         <item name="android:textSize">17sp</item>
         <item name="android:background">@drawable/background_rectangle_radius_19_selector</item>
         <item name="android:textColor">@color/text_color_switch_selector</item>
         <item name="android:gravity">center</item>
+        <item name="fontFamily">@font/dm_sans_regular</item>
     </style>
 
     <style name="Button" />
@@ -58,6 +157,8 @@
         <item name="cornerRadius">36dp</item>
         <item name="paddingHorizontal">30dp</item>
         <item name="progressColor">@color/primary</item>
+        <item name="android:textSize">26sp</item>
+        <item name="fontFamily">@font/dm_sans_regular</item>
     </style>
 
     <style name="Button.Primary">
@@ -67,6 +168,8 @@
         <item name="cornerRadius">36dp</item>
         <item name="paddingHorizontal">30dp</item>
         <item name="progressColor">@color/white</item>
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">26sp</item>
     </style>
 
     <style name="Button.Simple">
@@ -77,6 +180,8 @@
         <item name="paddingHorizontal">0dp</item>
         <item name="progressColor">@color/white</item>
         <item name="underline">true</item>
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">26sp</item>
     </style>
 
     <!-- Call to Action -->

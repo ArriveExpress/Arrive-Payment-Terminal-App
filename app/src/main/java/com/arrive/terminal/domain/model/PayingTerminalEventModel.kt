@@ -10,13 +10,14 @@ data class PayingTerminalEventModel(
     val amount: Double,
     val flaggedTripId: String? = null,
     val address: String?,
-    val breakdown: List<BreakdownItem>
+    val breakdown: List<BreakdownItem>? = emptyList(),
 ) : Parcelable {
 
     @Parcelize
     class BreakdownItem(
         val title: String,
-        val value: Double
+        val value: Double,
+        val minutes: Int? = null
     ) : Parcelable
 }
 

@@ -1,6 +1,9 @@
 package com.arrive.terminal.presentation.host
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -42,17 +45,41 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
     @Inject
     lateinit var pusherClient: PusherClient
 
+    private val logoutHandler = Handler(Looper.getMainLooper())
+    private val logoutRunnable = Runnable { onLogout() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         window.setNoLightStatusAndNavigationBar()
     }
 
+    override fun onUserInteraction() {
+        super.onUserInteraction()
+        resetLogoutTimer()
+    }
+
     override fun onResume() {
         super.onResume()
+        resetLogoutTimer()
         if (readyToPaymentEvents && !pusherClient.isConnectedOrConnecting()) {
             pusherClient.connect()
         }
+    //    remove, needed to test ride payments
+       /*
+        val data = PayingTerminalEventNT(
+            PayingTerminalEventNT.Data(
+                driverId = "2023",
+                rideId = "424457",
+                amount = 100.0,
+                breakdown = emptyList())
+        )
+        runOnUiThread {
+            handlePayingTerminalEvent(
+                Gson().toJson(data)
+            )
+        }
+       */
 
         if (!SharePreferenceUtils.getBoolean(this, KEY_INIT, false) && !initInProgress) {
             initInProgress = true
@@ -62,6 +89,7 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
 
     override fun onPause() {
         super.onPause()
+        stopLogoutTimer()
         if (readyToPaymentEvents) {
             pusherClient.disconnect()
         }
@@ -135,5 +163,43 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
             }
         }
     }
+
+    private fun onLogout() {
+        val currentDestination = navController.currentDestination?.id
+
+        if (currentDestination == R.id.loginFragment || currentDestination == R.id.driverFragment) return
+
+        viewModel.logout()
+    }
+
+    private fun resetLogoutTimer() {
+        logoutHandler.removeCallbacks(logoutRunnable)
+        logoutHandler.postDelayed(logoutRunnable, MainViewModel.LOGOUT_DELAY)
+    }
+
+    private fun stopLogoutTimer() {
+        logoutHandler.removeCallbacks(logoutRunnable)
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            hideSystemBars()
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun hideSystemBars() {
+        window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        or View.SYSTEM_UI_FLAG_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                )
+    }
 }
+
+
 

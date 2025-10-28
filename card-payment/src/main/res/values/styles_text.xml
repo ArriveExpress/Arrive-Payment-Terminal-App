@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomDialog" parent="Theme.AppCompat">
+        <item name="android:windowMinWidthMajor">80%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+    </style>
+
+    <style name="Text" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/dm_sans</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">-0.035</item>
+    </style>
+
+    <!-- Title -->
+    <style name="Text.Title">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Title.Big">
+        <item name="android:textSize">104sp</item>
+
+    </style>
+
+    <style name="Text.Title.Normal">
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="Text.Title.Small">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!-- SubTitle -->
+    <style name="Text.Subtitle">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Subtitle.Big">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Subtitle.Normal">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Subtitle.Small">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Subtitle.ExtraSmall">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Subtitle.TinyBold">
+        <item name="fontFamily">@font/dm_sans_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Subtitle.TinyNormal">
+        <item name="fontFamily">@font/dm_sans_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

@@ -8,6 +8,18 @@
     android:paddingVertical="16dp"
     tools:ignore="ContentDescription">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <ImageView
+            android:id="@+id/background_image"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:contentDescription="null"
+            android:scaleType="fitXY"
+            android:src="@drawable/background_gradient_small" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,16 +29,15 @@
 
         <TextView
             android:id="@+id/title"
-            style="@style/Text.Default.White"
+            style="@style/Text.Subtitle.Big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="27sp"
             tools:text="Add new card" />
 
-        <include
+        <com.arrive.terminal.presentation.ui.components.DoubleInputView
             android:id="@+id/doubleInput"
-            layout="@layout/layout_double_input"
+            app:firstInputMaxLength="16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp" />
@@ -37,7 +48,7 @@
             style="@style/Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_button_height"
-            app:text="@string/enter_card_tap_or_insert" />
+            tools:text="@string/enter_card_tap_or_insert" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cards"
@@ -57,8 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_button_height_secondary"
             android:layout_marginVertical="8dp"
-            app:text="@string/payment_method_cancel" />
-
+            tools:text="@string/common_cancel" />
     </LinearLayout>
+    </FrameLayout>
 
 </androidx.core.widget.NestedScrollView>

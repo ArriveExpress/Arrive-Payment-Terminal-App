@@ -26,5 +26,11 @@ interface CustomerManager {
         cardExpYear: String,
     ): Result<Unit>
 
+    suspend fun setReview(
+        customerId: String?,
+        userId: String,
+        rate: Int
+    ): Result<Unit>
+
     fun clear()
 }

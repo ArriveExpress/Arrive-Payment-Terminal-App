@@ -7,7 +7,11 @@ import kotlinx.parcelize.Parcelize
 data class MainScreenModel(
     val message: String?,
     val rides: List<RideModel>,
-    val flaggedTrip: FlaggedTripModel?
+    val flaggedTrip: FlaggedTripModel?,
+    val fixed: Double,
+    val percent: Double,
+    val isRateEnabled: Boolean?,
+    val defaultRate: Int?
 ) : Parcelable {
 
 }

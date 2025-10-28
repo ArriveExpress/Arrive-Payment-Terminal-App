@@ -5,75 +5,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:paddingVertical="16dp"
+    android:layout_marginHorizontal="@dimen/screen_horizontal_padding_small"
+    android:layout_marginTop="@dimen/screen_top_padding"
+    android:layout_marginBottom="20dp"
     tools:ignore="ContentDescription">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/title"
-            style="@style/Text.Default.White"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="@string/driver_title"
-            android:textSize="29sp"
-            app:layout_constraintBottom_toTopOf="@id/logo"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/Text.Subtitle.Big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/driver_title" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
         <ImageView
             android:id="@+id/logo"
             style="@style/Text.Default.White"
-            android:layout_width="280dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
+            android:layout_marginHorizontal="@dimen/logo_padding_big"
             android:adjustViewBounds="true"
-            android:src="@drawable/ic_logo"
-            app:layout_constraintBottom_toTopOf="@id/myAccount"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            android:src="@drawable/ic_logo" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
         <com.arrive.terminal.core.ui.view.AppButtonView
             android:id="@+id/myAccount"
             style="@style/Button.White"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/default_button_height"
-            android:layout_marginTop="18dp"
-            app:layout_constraintBottom_toTopOf="@id/date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logo"
-            app:text="@string/driver_my_account" />
+            tools:text="@string/driver_my_account" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/date"
-            style="@style/Text.Default.White"
+            style="@style/Text.Body.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="74dp"
-            android:textSize="19sp"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/driverId"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/myAccount"
             tools:text="Wed, July 16 2:53 PM" />
 
         <TextView
             android:id="@+id/driverId"
-            style="@style/Text.Default.White"
+            style="@style/Text.Body.ExtraSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/date"

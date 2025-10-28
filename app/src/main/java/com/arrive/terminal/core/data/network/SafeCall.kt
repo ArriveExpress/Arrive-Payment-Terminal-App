@@ -18,8 +18,7 @@ suspend fun <T> safeResultCall(
     } catch (throwable: Throwable) {
         val appException = when (throwable) {
             is AppException -> throwable
-            is ConnectException,
-            is UnknownHostException -> AppException.NetworkException(cause = throwable)
+            is ConnectException, is UnknownHostException -> AppException.NetworkException(cause = throwable)
 
             is HttpException -> {
                 val errorBody = throwable.getErrorMessage()

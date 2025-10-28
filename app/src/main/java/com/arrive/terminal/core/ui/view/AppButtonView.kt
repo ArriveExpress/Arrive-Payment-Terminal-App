@@ -38,6 +38,10 @@ class AppButtonView @JvmOverloads constructor(
         progress.isVisible = hasProgress
     }
 
+    fun setText(text: String) {
+        binding.textView.text = text
+    }
+
     private fun findAttributes(attrs: AttributeSet, defStyleAttr: Int) {
         context.withStyledAttributes(attrs, R.styleable.AppButtonView, defStyleAttr) {
             setCardBackgroundColor(getColor(R.styleable.AppButtonView_backgroundColor, context.getColor(R.color.primary)))

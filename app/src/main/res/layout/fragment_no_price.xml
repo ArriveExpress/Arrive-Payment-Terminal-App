@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipToPadding="false"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/default_horizontal_padding"
+    android:paddingHorizontal="@dimen/screen_horizontal_padding_normal"
     android:paddingVertical="24dp"
     tools:ignore="ContentDescription">
 
@@ -24,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="@string/no_price_set_title"
+        tools:text="@string/no_price_set_title"
         android:textColor="@color/neutral_900"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -35,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="@string/no_rice_message"
+        tools:text="@string/no_rice_message"
         android:textColor="@color/neutral_600"
         android:textSize="18sp" />
 
@@ -44,6 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/default_button_height"
         android:layout_marginTop="20dp"
-        app:text="@string/no_price_action" />
+        tools:text="@string/no_price_action" />
 
 </LinearLayout>

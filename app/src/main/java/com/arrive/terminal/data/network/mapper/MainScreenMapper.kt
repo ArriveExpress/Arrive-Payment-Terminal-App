@@ -25,7 +25,11 @@ class MainScreenMapper(model: MainScreenNT) : BaseMapper<MainScreenNT>(model) {
                 price = model.flaggedTripId?.price?.takeIf { it != 0.0 },
                 flaggedTripId = model.flaggedTripId?.flaggedTripId,
                 isPaid = model.flaggedTripId?.isPaid ?: false
-            )
+            ),
+            fixed = model.fixed ?: 0.0,
+            percent = model.percent ?: 0.0,
+            isRateEnabled = model.isRateEnabled ?: false,
+            defaultRate = model.defaultRate
         )
     }
 }

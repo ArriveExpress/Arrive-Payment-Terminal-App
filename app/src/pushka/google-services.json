@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "711927632802",
+    "project_id": "arrive-live-terminal",
+    "storage_bucket": "arrive-live-terminal.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711927632802:android:44dd9ae0175689ee6498fb",
+        "android_client_info": {
+          "package_name": "com.arrive.terminal_live"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI6bn_cIVk7SA4b5ns8VMlGkkYviaQNWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711927632802:android:3477865d097536696498fb",
+        "android_client_info": {
+          "package_name": "com.example.pushka_donation"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI6bn_cIVk7SA4b5ns8VMlGkkYviaQNWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

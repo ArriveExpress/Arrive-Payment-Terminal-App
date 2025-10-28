@@ -4,6 +4,7 @@ import LiveEvent
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentResultListener
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavOptions
 import com.arrive.terminal.R

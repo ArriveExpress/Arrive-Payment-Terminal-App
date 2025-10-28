@@ -6,6 +6,7 @@ import com.arrive.terminal.data.network.mapper.CustomerAccountMapper
 import com.arrive.terminal.data.network.request.AddBalanceExistingCardRequest
 import com.arrive.terminal.data.network.request.AddBalanceNewCardRequest
 import com.arrive.terminal.data.network.request.GetAccountRequest
+import com.arrive.terminal.data.network.request.ReviewRequest
 import com.arrive.terminal.data.network.request.SaveCreditCardRequest
 import com.arrive.terminal.data.network.request.SetDefaultCardRequest
 import com.arrive.terminal.domain.repository.CustomerRepository
@@ -87,4 +88,17 @@ class CustomerRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun setReview(customerId: String?, userId: String, rate: Int): Result<Unit> =
+        withContext(Dispatchers.IO) {
+            safeResultCall {
+                apiService.setReview(
+                    request = ReviewRequest(
+                        customerId = customerId,
+                        userId = userId,
+                        rate = rate
+                    )
+                )
+            }
+        }
 }

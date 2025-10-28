@@ -1,5 +1,6 @@
 package com.arrive.terminal.presentation.features.account;
 
+import LiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.arrive.terminal.R
@@ -7,10 +8,10 @@ import com.arrive.terminal.core.ui.base.BaseViewModel
 import com.arrive.terminal.core.ui.extensions.parcelableOrNull
 import com.arrive.terminal.core.ui.extensions.updateIfNew
 import com.arrive.terminal.core.ui.model.StringValue
-import com.arrive.terminal.core.ui.utils.AMOUNT_ACCOUNT_REFILL_CHARGE_INDEX
 import com.arrive.terminal.core.ui.utils.getPriceFormatted
 import com.arrive.terminal.core.ui.utils.withProgress
 import com.arrive.terminal.domain.manager.CustomerManager
+import com.arrive.terminal.domain.manager.DriverManager
 import com.arrive.terminal.domain.model.CreditCardModel
 import com.arrive.terminal.domain.model.CustomerAccountModel
 import com.arrive.terminal.presentation.adapter.CreditCardItem
@@ -22,11 +23,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AccountViewModel @Inject constructor(
-    private val customerManager: CustomerManager
+    private val customerManager: CustomerManager,
+    private val driverManager: DriverManager
 ) : BaseViewModel() {
 
     val progress = MutableLiveData<Boolean>()
     val customer = MutableLiveData<CustomerAccountModel>()
+
+    val onSuccessfulFilling = LiveEvent()
+    val onFailureFilling = LiveEvent()
 
     fun loadCustomer() {
         viewModelScope.launch {
@@ -39,17 +44,29 @@ class AccountViewModel @Inject constructor(
     }
 
     fun onRefillClick(amount: Double) {
-        val totalAmountFormatted = getPriceFormatted(
-            amount = amount,
-            withFee = true,
-            feeIndex = AMOUNT_ACCOUNT_REFILL_CHARGE_INDEX
-        )
-        navigateToSelectCard(
-            title = "$totalAmountFormatted\nSelect card or enter new",
-            cards = customer.value?.cards.orEmpty(),
-            totalAmountFormatted = totalAmountFormatted
-        ) {
-            refillAccount(amount, it)
+        viewModelScope.launch {
+            withProgress(progress) {
+                val feeFixed = driverManager.getFeeFixed()
+                val feeIndex = driverManager.getFeePercent()
+                if (feeFixed != null && feeIndex != null) {
+                    val totalAmountFormatted = getPriceFormatted(
+                        amount = amount,
+                        withFee = true,
+                        feeIndex = feeIndex,
+                        additionalFee = feeFixed
+                    )
+
+                    navigateToSelectCard(
+                        title = "$totalAmountFormatted\nSelect card or enter new",
+                        cards = customer.value?.cards.orEmpty(),
+                        totalAmountFormatted = totalAmountFormatted
+                    ) {
+                        refillAccount(amount, it)
+                    }
+                } else {
+                    onShowToast.value = mapToInfoMessage(NullPointerException())
+                }
+            }
         }
     }
 
@@ -62,9 +79,7 @@ class AccountViewModel @Inject constructor(
                     .onSuccess {
                         customer.updateIfNew {
                             it.copy(
-                                cards = it.cards.map { card ->
-                                    card.copy(defaultCard = card.id == cardItem.id)
-                                }
+                                cards = it.cards.map { card -> card.copy(defaultCard = card.id == cardItem.id) }
                             )
                         }
                     }
@@ -121,12 +136,14 @@ class AccountViewModel @Inject constructor(
                     cardExpMonth = card.expMonth,
                     cardExpYear = card.expYear
                 ).onSuccess {
+                    onSuccessfulFilling.fire()
                     onShowToast.value = StringValue.stringResource(
                         R.string.account_refill_success_message,
                         getPriceFormatted(amount)
                     )
                     loadCustomer()
                 }.onFailure {
+                    onFailureFilling.fire()
                     onShowToast.value = mapToInfoMessage(it)
                 }
             }

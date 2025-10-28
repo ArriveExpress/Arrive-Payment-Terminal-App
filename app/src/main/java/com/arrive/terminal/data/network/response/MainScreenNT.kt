@@ -26,7 +26,11 @@ import com.google.gson.annotations.SerializedName
 class MainScreenNT(
     @SerializedName("message") val message: String? = null,
     @SerializedName("rides") val rides: List<RideNT>? = null,
-    @SerializedName("flagged_trip") val flaggedTripId: FlaggedTripNT? = null
+    @SerializedName("flagged_trip") val flaggedTripId: FlaggedTripNT? = null,
+    @SerializedName("percent") val percent: Double? = null,
+    @SerializedName("fixed") val fixed: Double? = null,
+    @SerializedName("review_enabled") val isRateEnabled: Boolean? = null,
+    @SerializedName("review_rating_default") val defaultRate: Int? = null,
 ) {
 
     class RideNT(

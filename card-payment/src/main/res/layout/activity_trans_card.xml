@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="20dp"
     android:background="@android:color/black"
     android:fillViewport="true">
 
@@ -12,26 +15,13 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingDefaultResource">
 
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@android:color/white"
-            android:textSize="40sp"
-            app:layout_constraintBottom_toTopOf="@id/icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="$15.00" />
-
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleX="1.7"
-            android:scaleY="1.7"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,10 +31,24 @@
             app:lottie_repeatMode="restart"
             app:lottie_rawRes="@raw/lottie_pulsating" />
 
+        <TextView
+            android:id="@+id/price"
+            style="@style/Text.Title.Normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@id/icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="$15.00" />
+
         <ImageView
             android:id="@+id/icon"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:contentDescription="null"
             android:src="@drawable/ic_insert_card"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
@@ -54,31 +58,37 @@
             app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent="0.6" />
 
-        <TextView
-            android:id="@+id/manual"
-            android:layout_width="115dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/background_rectangle_radius_36_color_white"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
             android:gravity="center"
-            android:text="Manual"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon" />
-
-        <TextView
-            android:id="@+id/tv_cancel"
-            android:layout_width="115dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/background_rectangle_radius_36_color_white"
-            android:gravity="center"
-            android:text="Cancel"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:orientation="horizontal"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon" />
+            app:layout_constraintTop_toBottomOf="@id/icon">
+
+            <TextView
+                android:id="@+id/manual"
+                style="@style/Text.Subtitle.Small"
+                android:layout_width="115dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/background_rectangle_radius_36_color_white"
+                android:gravity="center"
+                android:text="@string/manual"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                style="@style/Text.Subtitle.Small"
+                android:layout_width="115dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:gravity="center"
+                android:text="@string/cancel" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

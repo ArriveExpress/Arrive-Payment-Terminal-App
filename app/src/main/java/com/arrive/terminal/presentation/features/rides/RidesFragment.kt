@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.arrive.terminal.R
+import com.arrive.terminal.core.model.Constants
 import com.arrive.terminal.core.model.isErrorState
 import com.arrive.terminal.core.model.isLoadingState
 import com.arrive.terminal.core.model.isSuccessState
@@ -17,10 +18,12 @@ import com.arrive.terminal.core.ui.model.StringValue.Companion.asStringValue
 import com.arrive.terminal.core.ui.view.recyclerview.decorator.SpaceConfig
 import com.arrive.terminal.core.ui.view.recyclerview.decorator.SpaceDividerDecorator
 import com.arrive.terminal.databinding.FragmentRidesBinding
+import com.arrive.terminal.domain.manager.StringsManager
 import com.arrive.terminal.presentation.adapter.flaggedTripAdapterDelegate
 import com.arrive.terminal.presentation.adapter.rideAdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RidesFragment : BaseVMFragment<FragmentRidesBinding, RidesViewModel>() {
@@ -34,8 +37,16 @@ class RidesFragment : BaseVMFragment<FragmentRidesBinding, RidesViewModel>() {
         flaggedTripAdapterDelegate { viewModel.onFlaggedTripClick(it) }
     )
 
+    @Inject
+    lateinit var stringsManager: StringsManager
+
     override fun FragmentRidesBinding.initUI(savedInstanceState: Bundle?) {
-        setTitle(R.string.rides_confirm_your_ride.asStringValue)
+        setTitle(
+            stringsManager.getString(
+                Constants.RIDES_CONFIRM_YOUR_RIDE,
+                requireContext().getString(R.string.rides_confirm_your_ride)
+            ).asStringValue
+        )
         rides.addItemDecoration(SpaceDividerDecorator(onDrawSpace = { _, _, _ ->
             SpaceConfig(vertical = requireContext().dpToPx(4), horizontal = 0)
         }))

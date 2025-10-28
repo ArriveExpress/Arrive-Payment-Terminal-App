@@ -4,15 +4,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import com.arrive.terminal.R
+import com.arrive.terminal.core.model.Constants
 import com.arrive.terminal.core.model.ResultState
 import com.arrive.terminal.core.model.isLoadingState
 import com.arrive.terminal.core.ui.base.BaseViewModel
 import com.arrive.terminal.core.ui.model.StringValue.Companion.asStringValue
 import com.arrive.terminal.core.ui.utils.formatPrice
 import com.arrive.terminal.domain.manager.DriverManager
+import com.arrive.terminal.domain.manager.StringsManager
 import com.arrive.terminal.domain.model.MainScreenModel
 import com.arrive.terminal.presentation.adapter.FlaggedTripItem
-import com.arrive.terminal.presentation.features.payment_method.PaymentMethodFragment
 import com.arrive.terminal.presentation.adapter.RVItem
 import com.arrive.terminal.presentation.adapter.RideItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +22,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RidesViewModel @Inject constructor(
-    private val driverManager: DriverManager
+    private val driverManager: DriverManager,
+    private val stringsManager: StringsManager
 ) : BaseViewModel() {
 
     val ridesState = MutableLiveData<ResultState<List<RVItem>>>()
@@ -66,7 +68,10 @@ class RidesViewModel @Inject constructor(
             if (model.flaggedTrip != null) {
                 FlaggedTripItem(
                     id = "flagged_trip_${model.flaggedTrip.flaggedTripId}",
-                    name = R.string.rides_item_different_ride.asStringValue,
+                    name = stringsManager.getString(
+                        Constants.RIDES_ITEM_DIFFERENT_RIDE,
+                        R.string.rides_item_different_ride.asStringValue.toString()
+                    ).asStringValue,
                 ).let(::add)
             }
         }

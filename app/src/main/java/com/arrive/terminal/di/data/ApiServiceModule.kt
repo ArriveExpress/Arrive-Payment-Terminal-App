@@ -1,5 +1,6 @@
 package com.arrive.terminal.di.data;
 
+import com.arrive.terminal.data.network.api.ConstantsApiService
 import com.arrive.terminal.data.network.api.CustomerApiService
 import com.arrive.terminal.data.network.api.DriverApiService
 import dagger.Module
@@ -24,5 +25,11 @@ object ApiServiceModule {
     @Provides
     fun provideCustomerApiService(@Named(NetworkModule.BASE_RETROFIT) retrofit: Retrofit): CustomerApiService {
         return retrofit.create(CustomerApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideConstantsApiService(@Named(NetworkModule.BASE_RETROFIT) retrofit: Retrofit): ConstantsApiService {
+        return retrofit.create(ConstantsApiService::class.java)
     }
 }

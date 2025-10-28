@@ -8,6 +8,11 @@ import com.arrive.terminal.domain.model.RideModel
 
 interface DriverManager {
 
+
+    suspend fun saveDriverId(driverId: String)
+
+    suspend fun getSavedDriverId(): String?
+
     suspend fun getMainScreenAuthorized(force: Boolean): Result<MainScreenModel>
 
     suspend fun getMainScreen(driverId: String): Result<MainScreenModel>
@@ -16,13 +21,21 @@ interface DriverManager {
         ride: RideModel?,
         flaggedTrip: FlaggedTripModel?,
         card: CardModel
-    ): Result<Unit>
+    ): Result<String?>
 
     suspend fun processAccountPayment(
         ride: RideModel?,
         flaggedTrip: FlaggedTripModel?,
         account: AccountModel
-    ): Result<Unit>
+    ): Result<String?>
 
     fun getAuthorizedDriverId(): String?
+
+    suspend fun getFeeFixed(driverId: String? = null): Double?
+
+    suspend fun getFeePercent(driverId: String? = null): Double?
+
+    suspend fun getIsRateEnabled(driverId: String? = null): Boolean?
+
+    suspend fun getDefaultRate(driverId: String? = null): Int?
 }

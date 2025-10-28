@@ -3,6 +3,7 @@ package com.arrive.terminal.data.network.api
 import com.arrive.terminal.data.network.request.AddBalanceExistingCardRequest
 import com.arrive.terminal.data.network.request.AddBalanceNewCardRequest
 import com.arrive.terminal.data.network.request.GetAccountRequest
+import com.arrive.terminal.data.network.request.ReviewRequest
 import com.arrive.terminal.data.network.request.SaveCreditCardRequest
 import com.arrive.terminal.data.network.request.SetDefaultCardRequest
 import com.arrive.terminal.data.network.response.GetCustomerResponseNT
@@ -25,6 +26,9 @@ interface CustomerApiService {
 
     @POST("$API_URL_PREFIX/terminal/add-balance")
     suspend fun addBalanceNew(@Body request: AddBalanceNewCardRequest)
+
+    @POST("$API_URL_PREFIX/terminal/review")
+    suspend fun setReview(@Body request: ReviewRequest)
 
     companion object {
 

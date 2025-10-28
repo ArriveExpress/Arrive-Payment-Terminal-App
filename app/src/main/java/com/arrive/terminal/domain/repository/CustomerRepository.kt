@@ -23,4 +23,10 @@ interface CustomerRepository {
         cardExpMonth: String,
         cardExpYear: String,
     ): Result<Unit>
+
+    suspend fun setReview(
+        customerId: String?,
+        userId: String,
+        rate: Int
+    ): Result<Unit>
 }

@@ -2,4 +2,6 @@
     <string name="app_name">Arrive Live</string>
 
     <string name="present_card">Tap or Insert Your Credit Card</string>
+    <string name="manual">Manual</string>
+    <string name="cancel">Cancel</string>
 </resources>

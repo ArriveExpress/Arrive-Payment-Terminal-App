@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:clipToPadding="false"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/default_horizontal_padding"
+    android:paddingHorizontal="@dimen/screen_horizontal_padding_normal"
     android:paddingVertical="24dp"
     tools:ignore="ContentDescription">
 

@@ -15,12 +15,12 @@ interface DriverRepository {
         ride: RideModel?,
         flaggedTrip: FlaggedTripModel?,
         card: CardModel
-    ): Result<Unit>
+    ): Result<String?>
 
     suspend fun processAccountPayment(
         driverId: String,
         ride: RideModel?,
         flaggedTrip: FlaggedTripModel?,
         account: AccountModel
-    ): Result<Unit>
+    ): Result<String?>
 }

@@ -45,7 +45,7 @@ class DriverRepositoryImpl @Inject constructor(
                     cardExpireMonth = card.cardExpireMonth,
                     cardExpireYear = card.cardExpireYear,
                 )
-            )
+            ).customerId
         }
     }
 
@@ -67,7 +67,7 @@ class DriverRepositoryImpl @Inject constructor(
                     accountNumber = account.number,
                     accountPin = account.pin,
                 )
-            )
+            ).customerId
         }
     }
 

@@ -14,25 +14,14 @@ class PayingTerminalEventMapper(model: PayingTerminalEventNT) : BaseMapper<Payin
             rideId = model.data.rideId,
             flaggedTripId = model.data.flaggedTripId,
             amount = model.data.amount.orZero(),
-//            pickUp = "Down streen 54 low",
-//            priceDetails = listOf(
-//                "Trip" to 11.0,
-//                "Minivan" to 2.0,
-//                "Wait" to 8.0,
-//                "Stop" to 5.0,
-//                "Luggage" to 10.0,
-//            ).map { PayingTerminalEventModel.PriceInfo(it.first, it.second) }
-
             address = model.data.address,
-            breakdown = model.data.breakdown?.let {
-                buildList<BreakdownItem> {
-                    add(BreakdownItem("Trip", it.tripValue.orZero()))
-                    add(BreakdownItem("Minivan", it.minivanValue.orZero()))
-                    add(BreakdownItem("Wait", it.waitValue.orZero()))
-                    add(BreakdownItem("Stop", it.stopValue.orZero()))
-                    add(BreakdownItem("Luggage", it.luggageValue.orZero()))
-                }
-            } ?: emptyList()
+            breakdown = model.data.breakdown?.map { item ->
+                BreakdownItem(
+                    item.name,
+                    item.amount,
+                    if (item.type == "wait_fee") item.minutes else null
+                )
+            }
         )
     }
 }

@@ -3,6 +3,7 @@ package com.arrive.terminal.data.network.api;
 import com.arrive.terminal.data.network.request.AccountPaymentRequest
 import com.arrive.terminal.data.network.request.CardPaymentRequest
 import com.arrive.terminal.data.network.response.MainScreenNT
+import com.arrive.terminal.data.network.response.PaymentResponseNT
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -14,10 +15,10 @@ interface DriverApiService {
     suspend fun getMainScreen(@Path("driver_id") driverId: String): MainScreenNT
 
     @POST("$API_URL_PREFIX/terminal/payment")
-    suspend fun processCardPayment(@Body request: CardPaymentRequest)
+    suspend fun processCardPayment(@Body request: CardPaymentRequest): PaymentResponseNT
 
     @POST("$API_URL_PREFIX/terminal/payment")
-    suspend fun processAccountPayment(@Body request: AccountPaymentRequest)
+    suspend fun processAccountPayment(@Body request: AccountPaymentRequest): PaymentResponseNT
 
     companion object {
 

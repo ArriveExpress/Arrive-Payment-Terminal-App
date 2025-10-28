@@ -2,38 +2,17 @@ package com.example.card_payment;
 
 import static com.example.card_payment.utils.SharePreferenceUtils.CAN_MAGSTRIPE;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
-
 import com.example.card_payment.emv.utils.EmvCard;
-import com.pos.sdk.accessory.POIGeneralAPI;
-import com.pos.sdk.emvcore.IPosEmvCoreListener;
-import com.pos.sdk.emvcore.POIEmvCoreManager;
-import com.pos.sdk.emvcore.POIEmvCoreManager.EmvCardInfoConstraints;
-import com.pos.sdk.emvcore.POIEmvCoreManager.EmvOnlineConstraints;
-import com.pos.sdk.emvcore.POIEmvCoreManager.EmvTransDataConstraints;
-import com.pos.sdk.emvcore.PosEmvErrorCode;
-import com.pos.sdk.security.POIHsmManage;
-import com.pos.sdk.utils.PosByteArray;
-import com.pos.sdk.utils.PosUtils;
 import com.example.card_payment.emvconfig.BerTag;
 import com.example.card_payment.emvconfig.BerTlv;
 import com.example.card_payment.emvconfig.BerTlvBuilder;
@@ -47,10 +26,18 @@ import com.example.card_payment.utils.AppExecutors;
 import com.example.card_payment.utils.BundleUtil;
 import com.example.card_payment.utils.DialogUtils;
 import com.example.card_payment.utils.ParameterInit;
-import com.example.card_payment.utils.ScreenUtils;
 import com.example.card_payment.utils.SharePreferenceUtils;
 import com.example.card_payment.utils.Utils;
-
+import com.pos.sdk.accessory.POIGeneralAPI;
+import com.pos.sdk.emvcore.IPosEmvCoreListener;
+import com.pos.sdk.emvcore.POIEmvCoreManager;
+import com.pos.sdk.emvcore.POIEmvCoreManager.EmvCardInfoConstraints;
+import com.pos.sdk.emvcore.POIEmvCoreManager.EmvOnlineConstraints;
+import com.pos.sdk.emvcore.POIEmvCoreManager.EmvTransDataConstraints;
+import com.pos.sdk.emvcore.PosEmvErrorCode;
+import com.pos.sdk.security.POIHsmManage;
+import com.pos.sdk.utils.PosByteArray;
+import com.pos.sdk.utils.PosUtils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -92,6 +79,25 @@ public class TransActivity extends BaseActivity {
 //        if (getSupportActionBar().isShowing() && ScreenUtils.getScreenHeight(this) <= 480) {
 //            getSupportActionBar().hide();
 //        }
+
+        CircularGradientDrawable circularGradientDrawable = new CircularGradientDrawable();
+
+        /*  custom animation
+        View animationView = findViewById(R.id.animation);
+
+        animationView.setBackground(circularGradientDrawable);
+
+        animationView
+                .getViewTreeObserver()
+                .addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw() {
+                        animationView.getViewTreeObserver().removeOnPreDrawListener(this);
+                        circularGradientDrawable.animateGradientRadius(circularGradientDrawable, animationView);
+                        return true;
+                    }
+                });
+         */
 
         Intent inputIntent = getIntent();
         CardReadInfo info = inputIntent.getParcelableExtra("input");
@@ -663,3 +669,5 @@ public class TransActivity extends BaseActivity {
         return super.onKeyUp(keyCode, event);
     }
 }
+
+

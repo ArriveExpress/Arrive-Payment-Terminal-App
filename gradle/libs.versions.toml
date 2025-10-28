@@ -1,5 +1,5 @@
 [versions]
-firebaseBom = "33.10.0"
+firebaseBom = "33.13.0"
 lottie = "6.6.4"
 pusherJavaClient = "2.4.4"
 targetSdk = "35"
@@ -7,6 +7,7 @@ compileSdk = "35"
 minSdk = "26"
 
 agp = "8.2.2"
+crashliticsPluginVersion = "3.0.3"
 kotlin = "1.9.24"
 coreKtx = "1.13.1"
 fragmentKtx = "1.5.5"
@@ -26,6 +27,8 @@ okhttpLogging = "4.11.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 adapterDelgatesVersion = '4.3.2'
+googleServices = "4.4.2"
+dataStoreVersion = "1.0.0"
 
 [libraries]
 # UI
@@ -35,8 +38,12 @@ androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navi
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
 androidx-navigation-runtime = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigation" }
+
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 adapterDelegates-viewBinding = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl-viewbinding", version.ref = "adapterDelgatesVersion" }
@@ -62,6 +69,7 @@ gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", ve
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "daggerHilt" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+data-store = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStoreVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -70,3 +78,5 @@ kotlin-parcelize = { id = "kotlin-parcelize", version = "unspecified" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version = "unspecified" }
 android-dagger-hilt = { id = "dagger.hilt.android.plugin", version = "unspecified" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashliticsPluginVersion" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }

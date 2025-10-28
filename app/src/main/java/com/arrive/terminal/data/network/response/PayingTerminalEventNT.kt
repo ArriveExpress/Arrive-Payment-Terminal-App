@@ -12,15 +12,14 @@ class PayingTerminalEventNT(
         @SerializedName("amount") val amount: Double? = null,
         @SerializedName("flagged_trip_id") val flaggedTripId: String? = null,
         @SerializedName("address") val address: String? = null,
-        @SerializedName("breakdown") val breakdown: BreakdownNT? = null
+        @SerializedName("breakdown") val breakdown: List<BreakdownNT>? = emptyList()
     ) {
-
         class BreakdownNT(
-            @SerializedName("Trip") val tripValue: Double? = null,
-            @SerializedName("Minivan") val minivanValue: Double? = null,
-            @SerializedName("Wait") val waitValue: Double? = null,
-            @SerializedName("Stop") val stopValue: Double? = null,
-            @SerializedName("Luggage") val luggageValue: Double? = null
+            @SerializedName("id") val id: Int? = null,
+            @SerializedName("type") val type: String = "",
+            @SerializedName("name") val name: String = "",
+            @SerializedName("amount") val amount: Double = 0.0,
+            @SerializedName("minutes") val minutes: Int? = null,
         )
     }
 }

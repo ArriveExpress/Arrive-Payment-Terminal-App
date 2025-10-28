@@ -8,9 +8,6 @@ import com.arrive.terminal.core.ui.extensions.valueOrEmpty
 import com.arrive.terminal.core.ui.model.StringValue.Companion.asStringValue
 import com.arrive.terminal.core.ui.utils.withProgress
 import com.arrive.terminal.domain.manager.DriverManager
-import com.arrive.terminal.presentation.features.enter_card.EnterCardFragment
-import com.arrive.terminal.presentation.features.payment_success.PaymentResultFragment
-import com.arrive.terminal.presentation.features.payment_success.PaymentResultType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,9 +24,8 @@ class LoginViewModel @Inject constructor(
 //        navigate(
 //            navigationResId = R.id.accountLoginFragment
 //        )
-
-
-        if (driverId.valueOrEmpty.isBlank()) {
+        val id = driverId.valueOrEmpty
+        if (id.isBlank()) {
             onShowToast.value = R.string.error_field_empty.asStringValue
             return
         }
@@ -39,6 +35,7 @@ class LoginViewModel @Inject constructor(
             withProgress(loginProgress) {
                 driverManager.getMainScreen(driverId.valueOrEmpty)
                     .onSuccess {
+                        driverManager.saveDriverId(id)
                         navigate(
                             navigationResId = R.id.driverFragment,
                             asStartDestination = true

@@ -9,9 +9,6 @@ import com.arrive.terminal.core.ui.extensions.valueOrEmpty
 import com.arrive.terminal.core.ui.model.StringValue.Companion.asStringValue
 import com.arrive.terminal.core.ui.utils.withProgress
 import com.arrive.terminal.domain.manager.CustomerManager
-import com.arrive.terminal.domain.manager.DriverManager
-import com.arrive.terminal.domain.repository.CustomerRepository
-import com.arrive.terminal.presentation.features.account.AccountFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,13 +20,16 @@ class AccountLoginViewModel @Inject constructor(
 
     val accountNumber = MutableLiveData<String>()
     val pin = MutableLiveData<String>()
+    val isActionButtonClickable = MutableLiveData(true)
 
     val driverId = MutableLiveData<String>()
     val loginProgress = MutableLiveData<Boolean>()
 
     fun onLoginClick() {
+        isActionButtonClickable.value = false
         if (accountNumber.valueOrEmpty.isBlank() || pin.valueOrEmpty.isBlank()) {
             onShowToast.value = R.string.error_field_empty.asStringValue
+            isActionButtonClickable.value = true
             return
         }
 
@@ -47,6 +47,7 @@ class AccountLoginViewModel @Inject constructor(
                     )
                 }.onFailure {
                     onShowToast.value = mapToInfoMessage(it)
+                    isActionButtonClickable.value = true
                 }
             }
         }

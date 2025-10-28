@@ -40,6 +40,7 @@ class PaymentMethodViewModel @Inject constructor(
 
     val accountNumber = MutableLiveData<String>()
     val pin = MutableLiveData<String>()
+    val isActionButtonClickable = MutableLiveData(true)
 
     val eventModelLiveData = NotNullMutableLiveData(
         savedStateHandle.getOrException<PayingTerminalEventModel>(PAYING_EVENT_ARG_KEY)
@@ -51,12 +52,30 @@ class PaymentMethodViewModel @Inject constructor(
     private val eventModel get() = eventModelLiveData.value
 
     fun onPayWithCardClick() {
-        onPayWithCard.value = CardReadInfo(getPriceFormatted(eventModel.amount, withFee = true))
+        viewModelScope.launch {
+            withProgress(hostProgress) {
+                val feeFixed = driverManager.getFeeFixed(eventModel.driverId)
+                val feeIndex = driverManager.getFeePercent(eventModel.driverId)
+                if (feeFixed != null && feeIndex != null) {
+                    val formattedAmount = getPriceFormatted(
+                        amount = eventModel.amount,
+                        withFee = true,
+                        feeIndex = feeIndex,
+                        additionalFee = feeFixed
+                    )
+                    onPayWithCard.value = CardReadInfo(formattedAmount)
+                } else {
+                    onShowToast.value = mapToInfoMessage(NullPointerException())
+                }
+            }
+        }
     }
 
     fun payWithAccount() {
+        isActionButtonClickable.value = false
         if (accountNumber.valueOrEmpty.isBlank() || pin.valueOrEmpty.isBlank()) {
             onShowToast.value = R.string.error_field_empty.asStringValue
+            isActionButtonClickable.value = true
             return
         }
 
@@ -67,44 +86,71 @@ class PaymentMethodViewModel @Inject constructor(
                     ride = eventModel.ride,
                     flaggedTrip = eventModel.flaggedTrip,
                     account = AccountModel(accountNumber.valueOrEmpty, pin.valueOrEmpty)
-                ).onSuccess {
-                    toPaymentResult(cardPayment = false, PaymentResultType.SUCCESS)
+                ).onSuccess { accountId ->
+                    toPaymentResult(
+                        cardPayment = false,
+                        type = PaymentResultType.SUCCESS,
+                        driverId = eventModel.driverId,
+                        accountId = accountId
+                    )
                 }.onFailure {
-                    toPaymentResult(cardPayment = false, PaymentResultType.ERROR, mapToInfoMessage(it))
+                    isActionButtonClickable.value = true
+                    toPaymentResult(
+                        cardPayment = false,
+                        type = PaymentResultType.ERROR,
+                        message = mapToInfoMessage(it)
+                    )
                 }
             }
         }
     }
 
     fun handlePayWithCard(result: TransResult) {
-        if (result.manual) {
-            navigate(
-                navigationResId = R.id.enterCardFragment,
-                args = EnterCardFragment.getBundle(
-                    title = "Pay ${getPriceFormatted(eventModel.amount, withFee = true)}",
-                    titleSize = 40f
-                ),
-                requestKey = EnterCardFragment.CARD_REQUEST_KEY,
-                resultListener = { _, bundle ->
-                    bundle.parcelableOrNull<EnterCardResult>(EnterCardFragment.CARD_RESULT_KEY)?.let {
-                        payWithCard(
-                            result = CardModel(
-                                number = it.cardNumber,
-                                cardExpireMonth = it.expMonth,
-                                cardExpireYear = it.expYear
-                            )
-                        )
+        viewModelScope.launch {
+            withProgress(hostProgress) {
+                if (result.manual) {
+                    val feeFixed = driverManager.getFeeFixed(eventModel.driverId)
+                    val feeIndex = driverManager.getFeePercent(eventModel.driverId)
+                    if (feeFixed != null && feeIndex != null) {
+                        navigate(
+                            navigationResId = R.id.enterCardFragment,
+                            args = EnterCardFragment.getBundle(
+                                title = "Pay ${
+                                    getPriceFormatted(
+                                        eventModel.amount,
+                                        withFee = true,
+                                        feeIndex = feeIndex,
+                                        additionalFee = feeFixed
+                                    )
+                                }",
+                                titleSize = 40f
+                            ),
+                            requestKey = EnterCardFragment.CARD_REQUEST_KEY,
+                            resultListener = { _, bundle ->
+                                bundle.parcelableOrNull<EnterCardResult>(EnterCardFragment.CARD_RESULT_KEY)
+                                    ?.let {
+                                        payWithCard(
+                                            result = CardModel(
+                                                number = it.cardNumber,
+                                                cardExpireMonth = it.expMonth,
+                                                cardExpireYear = it.expYear
+                                            )
+                                        )
+                                    }
+                            })
+                    } else {
+                        onShowToast.value = mapToInfoMessage(NullPointerException())
                     }
+                } else {
+                    payWithCard(
+                        result = CardModel(
+                            number = result.cardNumber,
+                            cardExpireMonth = result.expiryMonth.toString(),
+                            cardExpireYear = result.expireYear.toString()
+                        )
+                    )
                 }
-            )
-        } else {
-            payWithCard(
-                result = CardModel(
-                    number = result.cardNumber,
-                    cardExpireMonth = result.expiryMonth.toString(),
-                    cardExpireYear = result.expireYear.toString()
-                )
-            )
+            }
         }
     }
 
@@ -119,10 +165,19 @@ class PaymentMethodViewModel @Inject constructor(
                         cardExpireMonth = result.cardExpireMonth,
                         cardExpireYear = result.cardExpireYear,
                     )
-                ).onSuccess {
-                    toPaymentResult(cardPayment = true, PaymentResultType.SUCCESS)
+                ).onSuccess { accountId ->
+                    toPaymentResult(
+                        cardPayment = true,
+                        type = PaymentResultType.SUCCESS,
+                        driverId = eventModel.driverId,
+                        accountId = accountId
+                    )
                 }.onFailure {
-                    toPaymentResult(cardPayment = true, PaymentResultType.ERROR, mapToInfoMessage(it))
+                    toPaymentResult(
+                        cardPayment = true,
+                        type = PaymentResultType.ERROR,
+                        message = mapToInfoMessage(it)
+                    )
                 }
             }
         }
@@ -131,19 +186,70 @@ class PaymentMethodViewModel @Inject constructor(
     private fun toPaymentResult(
         cardPayment: Boolean,
         type: PaymentResultType,
-        message: StringValue? = null
+        message: StringValue? = null,
+        accountId: String? = null,
+        driverId: String? = null
     ) {
-        navigate(
-            navigationResId = R.id.paymentSuccessFragment,
-            args = PaymentResultFragment.getBundle(
-                type = type,
-                priceFormatted = getPriceFormatted(eventModel.amount, withFee = cardPayment),
-                message = message,
-            ),
-            navOptions = NavOptions.Builder().apply {
-                val popupTo = if (type == PaymentResultType.SUCCESS) R.id.driverFragment else R.id.paymentMethodFragment
-                setPopUpTo(popupTo, false)
-            }.build()
-        )
+        viewModelScope.launch {
+            withProgress(hostProgress) {
+                if (cardPayment) {
+                    val feeFixed = driverManager.getFeeFixed(driverId)
+                    val feeIndex = driverManager.getFeePercent(driverId)
+                    if (feeFixed != null && feeIndex != null) {
+                        navigate(
+                            navigationResId = R.id.paymentSuccessFragment,
+                            args = PaymentResultFragment.getBundle(
+                                type = type,
+                                priceFormatted = getPriceFormatted(
+                                    amount = eventModel.amount,
+                                    withFee = cardPayment,
+                                    feeIndex = feeIndex,
+                                    additionalFee = feeFixed
+                                ),
+                                message = message,
+                                accountId = accountId,
+                                driverId = driverId,
+                                isRateEnabled = driverManager.getIsRateEnabled(driverId),
+                                defaultRate = driverManager.getDefaultRate(driverId)
+                            ),
+                            navOptions = NavOptions.Builder().apply {
+                                val popupTo = if (type == PaymentResultType.SUCCESS) {
+                                    R.id.driverFragment
+                                } else {
+                                    R.id.paymentMethodFragment
+                                }
+                                setPopUpTo(popupTo, false)
+                            }.build()
+                        )
+                    } else {
+                        onShowToast.value = mapToInfoMessage(NullPointerException())
+                    }
+                } else {
+                    navigate(
+                        navigationResId = R.id.paymentSuccessFragment,
+                        args = PaymentResultFragment.getBundle(
+                            type = type,
+                            priceFormatted = getPriceFormatted(
+                                amount = eventModel.amount,
+                                withFee = cardPayment
+                            ),
+                            message = message,
+                            accountId = accountId,
+                            driverId = driverId,
+                            isRateEnabled = driverManager.getIsRateEnabled(driverId),
+                            defaultRate = driverManager.getDefaultRate(driverId)
+                        ),
+                        navOptions = NavOptions.Builder().apply {
+                            val popupTo = if (type == PaymentResultType.SUCCESS) {
+                                R.id.driverFragment
+                            } else {
+                                R.id.paymentMethodFragment
+                            }
+                            setPopUpTo(popupTo, false)
+                        }.build()
+                    )
+                }
+            }
+        }
     }
 }

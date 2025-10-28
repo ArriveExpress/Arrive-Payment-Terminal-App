@@ -57,6 +57,14 @@ class CustomerManagerImpl @Inject constructor(
         return customerRepository.addBalanceExisting(customerId, amount, cardId, cardNumber, cardExpMonth, cardExpYear)
     }
 
+    override suspend fun setReview(
+        customerId: String?,
+        userId: String,
+        rate: Int
+    ): Result<Unit> {
+        return customerRepository.setReview(customerId, userId, rate)
+    }
+
     override fun clear() {
         synchronized(lock) {
             lastCustomerNumber = null

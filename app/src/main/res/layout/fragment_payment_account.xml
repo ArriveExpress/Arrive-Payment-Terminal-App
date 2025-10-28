@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:clipToPadding="false"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/default_horizontal_padding"
+    android:paddingHorizontal="@dimen/screen_horizontal_padding_normal"
     android:paddingVertical="24dp"
     tools:ignore="ContentDescription">
 
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/default_button_height"
         android:layout_marginTop="20dp"
-        app:text="@string/account_confirm_payment" />
+        tools:text="@string/account_confirm_payment" />
 
     <com.arrive.terminal.core.ui.view.AppButtonView
         android:id="@+id/back"
@@ -36,7 +36,7 @@
         android:layout_marginTop="8dp"
         app:backgroundColor="@android:color/transparent"
         app:elevation="0dp"
-        app:text="@string/account_back"
+        tools:text="@string/account_back"
         app:textColor="@color/neutral_900" />
 
 </LinearLayout>
