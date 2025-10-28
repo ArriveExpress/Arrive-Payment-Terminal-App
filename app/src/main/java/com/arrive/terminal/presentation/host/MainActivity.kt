@@ -3,6 +3,7 @@ package com.arrive.terminal.presentation.host
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.MotionEvent
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -14,6 +15,7 @@ import com.arrive.terminal.core.data.network.getPayingTerminalChannel
 import com.arrive.terminal.core.ui.base.BaseVMActivity
 import com.arrive.terminal.core.ui.base.LayoutInflate
 import com.arrive.terminal.core.ui.model.StringValue
+import com.arrive.terminal.core.ui.utils.SecretQuit
 import com.arrive.terminal.core.ui.utils.safe
 import com.arrive.terminal.core.ui.utils.setNoLightStatusAndNavigationBar
 import com.arrive.terminal.data.network.response.PayingTerminalEventNT
@@ -52,6 +54,13 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         window.setNoLightStatusAndNavigationBar()
+    }
+    
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        ev?.let { 
+            SecretQuit.handleTouch(this, it, window.decorView.width, window.decorView.height)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
     override fun onUserInteraction() {
