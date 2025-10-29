@@ -42,8 +42,8 @@ fun configureBuildFields(buildType: String, prefix: String) {
     }
 }
 // Versioning
-val mVersionCode = 16
-val mVersionName = "16"
+val mVersionCode = 17
+val mVersionName = "17"
 val extraParams = rootProject.extra
 
 android {
