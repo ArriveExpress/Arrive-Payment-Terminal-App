@@ -26,7 +26,10 @@ class CardPaymentRequest(
     @SerializedName("amount") val amount: Double,
     @SerializedName("flagged_trip_id") val flaggedTripId: String?,
     @SerializedName("customer_phone") val customerPhone: String?,
+    @SerializedName("is_card_manual_entry") val isCardManualEntry: Boolean = false,
     @SerializedName("card_number") val cardNumber: String,
     @SerializedName("card_expiry_month") val cardExpireMonth: String,
     @SerializedName("card_expiry_year") val cardExpireYear: String,
+    @SerializedName("card_cvc") val cardCvc: String? = null,
+    @SerializedName("card_zip_code") val cardZipCode: String? = null
 )
