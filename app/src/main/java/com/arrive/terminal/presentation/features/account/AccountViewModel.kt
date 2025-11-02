@@ -157,9 +157,11 @@ class AccountViewModel @Inject constructor(
             withProgress(progress) {
                 customerManager.saveCreditCard(
                     customerId = customerValue.id,
+                    isManualEntry = card.isManualEntry,
                     cardNumber = card.cardNumber,
                     expiryMonth = card.expMonth,
-                    expiryYear = card.expYear
+                    expiryYear = card.expYear,
+                    cvc = card.cvc
                 ).onSuccess {
                     loadCustomer()
                 }.onFailure {

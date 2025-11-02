@@ -41,17 +41,21 @@ class CustomerRepositoryImpl @Inject constructor(
 
     override suspend fun saveCreditCard(
         customerId: String,
+        isManualEntry: Boolean,
         cardNumber: String,
         expiryMonth: String,
-        expiryYear: String
+        expiryYear: String,
+        cvc: String?
     )  = withContext(Dispatchers.IO) {
         safeResultCall {
             apiService.saveCreditCard(
                 request = SaveCreditCardRequest(
                     customerId = customerId,
+                    isManualEntry = isManualEntry,
                     cardNumber = cardNumber,
                     expiryMonth = expiryMonth,
-                    expiryYear = expiryYear
+                    expiryYear = expiryYear,
+                    cvc = cvc
                 )
             )
         }

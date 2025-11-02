@@ -12,9 +12,11 @@ interface CustomerManager {
 
     suspend fun saveCreditCard(
         customerId: String,
+        isManualEntry: Boolean,
         cardNumber: String,
         expiryMonth: String,
-        expiryYear: String
+        expiryYear: String,
+        cvc: String?
     ): Result<Unit>
 
     suspend fun addBalance(
