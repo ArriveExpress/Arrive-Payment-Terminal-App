@@ -36,6 +36,7 @@ object Constants {
     const val COMMON_HINT_PIN = "common_hint_pin"
     const val COMMON_HINT_CREDIT_CARD = "common_hint_credit_card"
     const val COMMON_HINT_CARD_EXP = "common_hint_card_exp"
+    const val COMMON_HINT_CVC = "common_hint_cvc"
     const val COMMON_TRY_AGAIN = "common_try_again"
     const val ITEM_CARD_DEFAULT = "item_card_default"
 }

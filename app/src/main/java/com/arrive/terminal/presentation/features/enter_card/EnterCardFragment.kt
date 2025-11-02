@@ -44,19 +44,23 @@ data class EnterCardData(
 @Parcelize
 data class EnterCardResult(
     val cardId: String?,
+    val isManualEntry: Boolean,
     val cardNumber: String,
     val expMonth: String,
     val expYear: String,
+    val cvc: String?,
 ) : Parcelable {
 
     companion object {
 
         fun createDefault(
             cardId: String? = null,
+            isManualEntry: Boolean = false,
             cardNumber: String = "",
             expMonth: String = "",
-            expYear: String = ""
-        ) = EnterCardResult(cardId, cardNumber, expMonth, expYear)
+            expYear: String = "",
+            cvc: String? = null
+        ) = EnterCardResult(cardId, isManualEntry, cardNumber, expMonth, expYear, cvc)
     }
 }
 
@@ -127,6 +131,16 @@ class EnterCardFragment : BaseVMFragment<FragmentEnterCardBinding, EnterCardView
                 setupAsExpiryDateField()
                 disableSelectInsertText()
             }
+            inputThird.apply {
+                hint = stringsManager.getString(
+                    Constants.COMMON_HINT_CVC,
+                    context.getString(R.string.common_hint_cvc)
+                )
+                inputType = InputType.TYPE_CLASS_NUMBER
+                isVisible = true
+                bindTwoWays(viewLifecycleOwner, viewModel.cvc)
+                disableSelectInsertText()
+            }
             continueAction.isVisible = true
             continueAction.isClickable = true
         }
@@ -148,9 +162,11 @@ class EnterCardFragment : BaseVMFragment<FragmentEnterCardBinding, EnterCardView
                 val cardExp = inputSeconds.textOrEmpty.getExpiryDateRaw() ?: return@observe
                 closeWithResult(
                     result = EnterCardResult.createDefault(
+                        isManualEntry = true,
                         cardNumber = inputFirst.textOrEmpty,
                         expMonth = cardExp.first.toString(),
-                        expYear = cardExp.second.toString()
+                        expYear = cardExp.second.toString(),
+                        cvc = inputThird.textOrEmpty
                     )
                 )
             }

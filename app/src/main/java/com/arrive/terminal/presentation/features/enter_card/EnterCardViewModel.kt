@@ -17,6 +17,7 @@ class EnterCardViewModel @Inject constructor() : BaseViewModel() {
 
     val cardNumber = MutableLiveData<String>()
     val exp = MutableLiveData<String>()
+    val cvc = MutableLiveData<String>()
     val isActionButtonClickable = MutableLiveData(true)
 
     val onCloseWithManualResult = LiveEvent()
@@ -25,7 +26,9 @@ class EnterCardViewModel @Inject constructor() : BaseViewModel() {
 
     fun onContinueClick() {
         isActionButtonClickable.value = false
-        if (cardNumber.valueOrEmpty.isBlank() || !isValidExpiryDateFormat(exp.valueOrEmpty)) {
+        if (cardNumber.valueOrEmpty.isBlank() || 
+            !isValidExpiryDateFormat(exp.valueOrEmpty) ||
+            cvc.valueOrEmpty.isBlank()) {
             onShowToast.value = R.string.error_field_empty.asStringValue
             isActionButtonClickable.value = true
             return
@@ -36,7 +39,9 @@ class EnterCardViewModel @Inject constructor() : BaseViewModel() {
 
     fun showConfirmation(card: CreditCardItem? = null) {
         if (card == null) {
-            if (cardNumber.valueOrEmpty.isBlank() || !isValidExpiryDateFormat(exp.valueOrEmpty)) {
+            if (cardNumber.valueOrEmpty.isBlank() || 
+                !isValidExpiryDateFormat(exp.valueOrEmpty) ||
+                cvc.valueOrEmpty.isBlank()) {
                 onShowToast.value = R.string.error_field_empty.asStringValue
                 return
             }

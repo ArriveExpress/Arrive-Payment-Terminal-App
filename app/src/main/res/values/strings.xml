@@ -69,5 +69,6 @@
     <string name="common_try_again">Try again</string>
     <string name="common_hint_credit_card">Credit Card</string>
     <string name="common_hint_card_exp">Exp  /</string>
+    <string name="common_hint_cvc">CVC</string>
     <string name="payment_result_rate_title">How was your ride?</string>
 </resources>
