@@ -135,8 +135,7 @@ class PaymentMethodViewModel @Inject constructor(
                                                 number = it.cardNumber,
                                                 cardExpireMonth = it.expMonth,
                                                 cardExpireYear = it.expYear,
-                                                cvc = it.cvc,
-                                                zipCode = it.zipCode
+                                                cvc = it.cvc
                                             )
                                         )
                                     }

@@ -5,6 +5,5 @@ data class CardModel(
     val number: String,
     val cardExpireMonth: String,
     val cardExpireYear: String,
-    val cvc: String? = null,
-    val zipCode: String? = null,
+    val cvc: String? = null
 )

@@ -30,6 +30,5 @@ class CardPaymentRequest(
     @SerializedName("card_number") val cardNumber: String,
     @SerializedName("card_expiry_month") val cardExpireMonth: String,
     @SerializedName("card_expiry_year") val cardExpireYear: String,
-    @SerializedName("card_cvc") val cardCvc: String? = null,
-    @SerializedName("card_zip_code") val cardZipCode: String? = null
+    @SerializedName("card_cvc") val cardCvc: String? = null
 )

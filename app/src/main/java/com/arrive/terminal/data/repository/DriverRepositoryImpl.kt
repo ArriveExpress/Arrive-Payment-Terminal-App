@@ -45,8 +45,7 @@ class DriverRepositoryImpl @Inject constructor(
                     cardNumber = card.number,
                     cardExpireMonth = card.cardExpireMonth,
                     cardExpireYear = card.cardExpireYear,
-                    cardCvc = card.cvc,
-                    cardZipCode = card.zipCode
+                    cardCvc = card.cvc
                 )
             ).customerId
         }
