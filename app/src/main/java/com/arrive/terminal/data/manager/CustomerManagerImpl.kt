@@ -52,11 +52,13 @@ class CustomerManagerImpl @Inject constructor(
         customerId: String,
         amount: Double,
         cardId: String?,
+        isCardManualEntry: Boolean = false,
         cardNumber: String,
         cardExpMonth: String,
         cardExpYear: String,
+        cardCvc: String? = null,
     ): Result<Unit> {
-        return customerRepository.addBalanceExisting(customerId, amount, cardId, cardNumber, cardExpMonth, cardExpYear)
+        return customerRepository.addBalanceExisting(customerId, amount, cardId, isCardManualEntry, cardNumber, cardExpMonth, cardExpYear, cardCvc)
     }
 
     override suspend fun setReview(

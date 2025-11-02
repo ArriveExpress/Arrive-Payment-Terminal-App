@@ -23,9 +23,11 @@ interface CustomerManager {
         customerId: String,
         amount: Double,
         cardId: String?,
+        isCardManualEntry: Boolean = false,
         cardNumber: String,
         cardExpMonth: String,
         cardExpYear: String,
+        cardCvc: String? = null,
     ): Result<Unit>
 
     suspend fun setReview(

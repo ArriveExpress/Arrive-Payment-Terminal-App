@@ -132,9 +132,11 @@ class AccountViewModel @Inject constructor(
                     customerId = customer.id,
                     amount = amount,
                     cardId = card.cardId,
+                    isCardManualEntry = card.isManualEntry,
                     cardNumber = card.cardNumber,
                     cardExpMonth = card.expMonth,
-                    cardExpYear = card.expYear
+                    cardExpYear = card.expYear,
+                    cardCvc = card.cvc
                 ).onSuccess {
                     onSuccessfulFilling.fire()
                     onShowToast.value = StringValue.stringResource(
