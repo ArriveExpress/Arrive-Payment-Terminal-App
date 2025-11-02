@@ -21,6 +21,7 @@ class DoubleInputView @JvmOverloads constructor(
 
     val inputFirst: AppCompatEditText
     val inputSeconds: AppCompatEditText
+    val inputThird: AppCompatEditText
     val continueAction: ImageView
 
     private var firstMaxLength: Int = 11
@@ -30,6 +31,7 @@ class DoubleInputView @JvmOverloads constructor(
 
         inputFirst = findViewById(R.id.inputFirst)
         inputSeconds = findViewById(R.id.inputSeconds)
+        inputThird = findViewById(R.id.inputThird)
         continueAction = findViewById(R.id.continueAction)
 
         attrs?.let {
@@ -43,6 +45,9 @@ class DoubleInputView @JvmOverloads constructor(
 
         inputSeconds.inputType = InputType.TYPE_CLASS_NUMBER
         inputSeconds.filters = arrayOf(InputFilter.LengthFilter(4))
+
+        inputThird?.inputType = InputType.TYPE_CLASS_NUMBER
+        inputThird?.filters = arrayOf(InputFilter.LengthFilter(4))
 
         inputFirst.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
