@@ -131,7 +131,7 @@ class PaymentMethodViewModel @Inject constructor(
                                     ?.let {
                                         payWithCard(
                                             result = CardModel(
-                                                isManualEntry = true,
+                                                isManualEntry = it.isManualEntry,
                                                 number = it.cardNumber,
                                                 cardExpireMonth = it.expMonth,
                                                 cardExpireYear = it.expYear,
