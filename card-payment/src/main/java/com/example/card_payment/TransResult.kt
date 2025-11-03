@@ -8,6 +8,7 @@ data class TransResult(
     val manual: Boolean,
     val cardNumber: String,
     val expiryMonth: Int,
-    val expireYear: Int
+    val expireYear: Int,
+    val cvv: String? = null
 ) : Parcelable
 

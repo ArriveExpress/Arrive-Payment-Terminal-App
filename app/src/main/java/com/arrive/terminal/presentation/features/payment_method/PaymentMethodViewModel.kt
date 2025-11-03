@@ -148,7 +148,8 @@ class PaymentMethodViewModel @Inject constructor(
                         result = CardModel(
                             number = result.cardNumber,
                             cardExpireMonth = result.expiryMonth.toString(),
-                            cardExpireYear = result.expireYear.toString()
+                            cardExpireYear = result.expireYear.toString(),
+                            cvc = result.cvv
                         )
                     )
                 }

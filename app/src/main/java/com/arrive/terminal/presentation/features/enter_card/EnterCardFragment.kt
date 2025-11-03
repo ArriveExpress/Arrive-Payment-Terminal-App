@@ -81,7 +81,8 @@ class EnterCardFragment : BaseVMFragment<FragmentEnterCardBinding, EnterCardView
             closeWithResult(result = EnterCardResult.createDefault(
                 cardNumber = result.cardNumber,
                 expMonth = result.expiryMonth.toString(),
-                expYear = result.expireYear.toString()
+                expYear = result.expireYear.toString(),
+                cvc = result.cvv
             ))
         }
     }
