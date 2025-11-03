@@ -131,9 +131,11 @@ class PaymentMethodViewModel @Inject constructor(
                                     ?.let {
                                         payWithCard(
                                             result = CardModel(
+                                                isManualEntry = it.isManualEntry,
                                                 number = it.cardNumber,
                                                 cardExpireMonth = it.expMonth,
-                                                cardExpireYear = it.expYear
+                                                cardExpireYear = it.expYear,
+                                                cvc = it.cvc
                                             )
                                         )
                                     }
@@ -146,7 +148,8 @@ class PaymentMethodViewModel @Inject constructor(
                         result = CardModel(
                             number = result.cardNumber,
                             cardExpireMonth = result.expiryMonth.toString(),
-                            cardExpireYear = result.expireYear.toString()
+                            cardExpireYear = result.expireYear.toString(),
+                            cvc = result.cvv
                         )
                     )
                 }
@@ -160,11 +163,7 @@ class PaymentMethodViewModel @Inject constructor(
                 driverManager.processCardPayment(
                     ride = eventModel.ride,
                     flaggedTrip = eventModel.flaggedTrip,
-                    card = CardModel(
-                        number = result.number,
-                        cardExpireMonth = result.cardExpireMonth,
-                        cardExpireYear = result.cardExpireYear,
-                    )
+                    card = result
                 ).onSuccess { accountId ->
                     toPaymentResult(
                         cardPayment = true,

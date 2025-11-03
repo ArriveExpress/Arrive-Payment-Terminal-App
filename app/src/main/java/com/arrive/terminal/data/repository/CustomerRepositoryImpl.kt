@@ -41,17 +41,21 @@ class CustomerRepositoryImpl @Inject constructor(
 
     override suspend fun saveCreditCard(
         customerId: String,
+        isManualEntry: Boolean,
         cardNumber: String,
         expiryMonth: String,
-        expiryYear: String
+        expiryYear: String,
+        cvc: String?
     )  = withContext(Dispatchers.IO) {
         safeResultCall {
             apiService.saveCreditCard(
                 request = SaveCreditCardRequest(
                     customerId = customerId,
+                    isManualEntry = isManualEntry,
                     cardNumber = cardNumber,
                     expiryMonth = expiryMonth,
-                    expiryYear = expiryYear
+                    expiryYear = expiryYear,
+                    cvc = cvc
                 )
             )
         }
@@ -61,9 +65,11 @@ class CustomerRepositoryImpl @Inject constructor(
         customerId: String,
         amount: Double,
         cardId: String?,
+        isCardManualEntry: Boolean,
         cardNumber: String,
         cardExpMonth: String,
         cardExpYear: String,
+        cardCvc: String?,
     ) = withContext(Dispatchers.IO) {
         safeResultCall {
             if (cardId != null) {
@@ -80,9 +86,11 @@ class CustomerRepositoryImpl @Inject constructor(
                         customerId = customerId,
                         amount = amount,
                         newCard = true,
+                        isManualEntry = isCardManualEntry,
                         cardNumber = cardNumber,
                         expMonth = cardExpMonth,
-                        expYear = cardExpYear
+                        expYear = cardExpYear,
+                        cvc = cardCvc
                     )
                 )
             }

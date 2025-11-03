@@ -28,6 +28,7 @@ public class EmvCard implements Serializable {
     private String    appLabel;
     private String    serviceCode;
     private int       issuerCountryCode  = -1;
+    private String    cvv;
 
     public EmvCard(byte[] data) {
         BerTlvParser tlvParser = new BerTlvParser();
@@ -149,6 +150,18 @@ public class EmvCard implements Serializable {
                 cardNumber = cardNumber.substring(0, cardIndex);
             }
         }
+        
+        // Extract CVV2/CVC2 from EMV data (industry standard)
+        tlv = tlvs.find(new BerTag("9F07")); // CVV2/CVC2 tag
+        if (tlv != null) {
+            cvv = tlv.getHexValue();
+        } else {
+            // Fallback to CVC if CVV2/CVC2 not available
+            tlv = tlvs.find(new BerTag("9F08"));
+            if (tlv != null) {
+                cvv = tlv.getHexValue();
+            }
+        }
     }
 
     public EmvTrack1 getTrack1() {
@@ -185,6 +198,10 @@ public class EmvCard implements Serializable {
 
     public int getIssuerCountryCode() {
         return issuerCountryCode;
+    }
+
+    public String getCvv() {
+        return cvv;
     }
 
     private static final Pattern TRACK1_PATTERN = Pattern.compile("%?([A-Z])([0-9]{1,19})(\\?[0-9])?\\^([^\\^]{2,26})\\^([0-9]{4}|\\^)([0-9]{3}|\\^)([^?]+)\\??");

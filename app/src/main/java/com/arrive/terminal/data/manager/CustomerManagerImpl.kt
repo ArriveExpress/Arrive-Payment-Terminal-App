@@ -39,22 +39,26 @@ class CustomerManagerImpl @Inject constructor(
 
     override suspend fun saveCreditCard(
         customerId: String,
+        isManualEntry: Boolean,
         cardNumber: String,
         expiryMonth: String,
-        expiryYear: String
+        expiryYear: String,
+        cvc: String?
     ): Result<Unit> {
-        return customerRepository.saveCreditCard(customerId, cardNumber, expiryMonth, expiryYear)
+        return customerRepository.saveCreditCard(customerId, isManualEntry, cardNumber, expiryMonth, expiryYear, cvc)
     }
 
     override suspend fun addBalance(
         customerId: String,
         amount: Double,
         cardId: String?,
+        isCardManualEntry: Boolean,
         cardNumber: String,
         cardExpMonth: String,
         cardExpYear: String,
+        cardCvc: String?,
     ): Result<Unit> {
-        return customerRepository.addBalanceExisting(customerId, amount, cardId, cardNumber, cardExpMonth, cardExpYear)
+        return customerRepository.addBalanceExisting(customerId, amount, cardId, isCardManualEntry, cardNumber, cardExpMonth, cardExpYear, cardCvc)
     }
 
     override suspend fun setReview(

@@ -132,9 +132,11 @@ class AccountViewModel @Inject constructor(
                     customerId = customer.id,
                     amount = amount,
                     cardId = card.cardId,
+                    isCardManualEntry = card.isManualEntry,
                     cardNumber = card.cardNumber,
                     cardExpMonth = card.expMonth,
-                    cardExpYear = card.expYear
+                    cardExpYear = card.expYear,
+                    cardCvc = card.cvc
                 ).onSuccess {
                     onSuccessfulFilling.fire()
                     onShowToast.value = StringValue.stringResource(
@@ -157,9 +159,11 @@ class AccountViewModel @Inject constructor(
             withProgress(progress) {
                 customerManager.saveCreditCard(
                     customerId = customerValue.id,
+                    isManualEntry = card.isManualEntry,
                     cardNumber = card.cardNumber,
                     expiryMonth = card.expMonth,
-                    expiryYear = card.expYear
+                    expiryYear = card.expYear,
+                    cvc = card.cvc
                 ).onSuccess {
                     loadCustomer()
                 }.onFailure {

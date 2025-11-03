@@ -41,9 +41,11 @@ class DriverRepositoryImpl @Inject constructor(
                     flaggedTripId = flaggedTrip?.flaggedTripId,
                     paymentMethod = CARD_PAYMENT_TYPE,
                     customerPhone = ride?.customerPhone,
+                    isCardManualEntry = card.isManualEntry,
                     cardNumber = card.number,
                     cardExpireMonth = card.cardExpireMonth,
                     cardExpireYear = card.cardExpireYear,
+                    cardCvc = card.cvc
                 )
             ).customerId
         }

@@ -135,7 +135,7 @@ public class TransActivity extends BaseActivity {
         emvCoreListener = new POIEmvCoreListener();
 
         findViewById(R.id.manual).setOnClickListener(v -> {
-            TransResult result = new TransResult(true, "", -1, -1);
+            TransResult result = new TransResult(true, "", -1, -1, null);
             Intent intent = new Intent();
             intent.putExtra("result", result);
             TransActivity.this.setResult(RESULT_OK, intent);
@@ -608,7 +608,8 @@ public class TransActivity extends BaseActivity {
                             calendar.setTime(cardDate);
                             TransResult result = new TransResult(false, emvCard.getCardNumber(),
                                     /* month */ calendar.get(Calendar.MONTH) + 1,
-                                    /* year */ calendar.get(Calendar.YEAR));
+                                    /* year */ calendar.get(Calendar.YEAR),
+                                    /* cvv */ emvCard.getCvv());
                             Intent intent = new Intent();
                             intent.putExtra("result", result);
                             TransActivity.this.setResult(RESULT_OK, intent);

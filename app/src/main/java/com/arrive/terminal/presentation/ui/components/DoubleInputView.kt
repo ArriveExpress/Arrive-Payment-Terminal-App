@@ -7,6 +7,7 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +22,7 @@ class DoubleInputView @JvmOverloads constructor(
 
     val inputFirst: AppCompatEditText
     val inputSeconds: AppCompatEditText
+    val inputThird: AppCompatEditText
     val continueAction: ImageView
 
     private var firstMaxLength: Int = 11
@@ -30,6 +32,7 @@ class DoubleInputView @JvmOverloads constructor(
 
         inputFirst = findViewById(R.id.inputFirst)
         inputSeconds = findViewById(R.id.inputSeconds)
+        inputThird = findViewById(R.id.inputThird)
         continueAction = findViewById(R.id.continueAction)
 
         attrs?.let {
@@ -44,11 +47,27 @@ class DoubleInputView @JvmOverloads constructor(
         inputSeconds.inputType = InputType.TYPE_CLASS_NUMBER
         inputSeconds.filters = arrayOf(InputFilter.LengthFilter(4))
 
+        inputThird?.inputType = InputType.TYPE_CLASS_NUMBER
+        inputThird?.filters = arrayOf(InputFilter.LengthFilter(4))
+
         inputFirst.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s?.length == firstMaxLength) {
                     inputSeconds.requestFocus()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+        
+        inputSeconds.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Check if we have 4 clean digits for expiry date (MM/YY format)
+                val cleanText = s.toString().replace(" ", "").replace("/", "")
+                if (cleanText.length == 4 && inputThird.visibility == View.VISIBLE) {
+                    inputThird.requestFocus()
                 }
             }
 
