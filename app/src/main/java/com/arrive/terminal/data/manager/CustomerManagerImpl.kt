@@ -52,11 +52,11 @@ class CustomerManagerImpl @Inject constructor(
         customerId: String,
         amount: Double,
         cardId: String?,
-        isCardManualEntry: Boolean = false,
+        isCardManualEntry: Boolean,
         cardNumber: String,
         cardExpMonth: String,
         cardExpYear: String,
-        cardCvc: String? = null,
+        cardCvc: String?,
     ): Result<Unit> {
         return customerRepository.addBalanceExisting(customerId, amount, cardId, isCardManualEntry, cardNumber, cardExpMonth, cardExpYear, cardCvc)
     }

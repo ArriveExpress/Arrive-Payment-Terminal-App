@@ -65,11 +65,11 @@ class CustomerRepositoryImpl @Inject constructor(
         customerId: String,
         amount: Double,
         cardId: String?,
-        isCardManualEntry: Boolean = false,
+        isCardManualEntry: Boolean,
         cardNumber: String,
         cardExpMonth: String,
         cardExpYear: String,
-        cardCvc: String? = null,
+        cardCvc: String?,
     ) = withContext(Dispatchers.IO) {
         safeResultCall {
             if (cardId != null) {
