@@ -84,8 +84,8 @@ android {
             applicationId = "com.arrive.terminal"
             versionNameSuffix = "-dev"
             resValue("string", "app_name", "Arrive Testing Local")
-            buildConfigField("String", "BASE_API_URL", "\"https://arrive-prod.shipto.shop\"")
-            buildConfigField("String", "PUSHER_HOST", "\"arrive-prod.shipto.shop\"")
+            buildConfigField("String", "BASE_API_URL", "\"https://staging.arrivemonsey.com\"")
+            buildConfigField("String", "PUSHER_HOST", "\"ws.staging.arrivemonsey.com\"")
         }
     }
 
