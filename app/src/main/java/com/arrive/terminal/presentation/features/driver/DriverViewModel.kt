@@ -1,7 +1,6 @@
 package com.arrive.terminal.presentation.features.driver;
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.arrive.terminal.R
 import com.arrive.terminal.core.ui.base.BaseViewModel
@@ -23,11 +22,19 @@ class DriverViewModel @Inject constructor(
         args = listOf(driverManager.getAuthorizedDriverId().orEmpty())
     ))
 
-    val weather = driverManager.weatherFlow.asLiveData()
+    val weather = MutableLiveData<WeatherModel?>()
 
     override fun onViewLoaded() {
         if (driverManager.getAuthorizedDriverId().isNullOrBlank()) {
             onRestartApplication.fire()
+        } else {
+            loadWeather()
+        }
+    }
+
+    private fun loadWeather() {
+        viewModelScope.launch {
+            weather.value = driverManager.getLastWeather()
         }
     }
 
