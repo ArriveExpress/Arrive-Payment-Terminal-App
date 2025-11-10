@@ -6,9 +6,11 @@ import com.arrive.terminal.domain.model.FlaggedTripModel
 import com.arrive.terminal.domain.model.MainScreenModel
 import com.arrive.terminal.domain.model.RideModel
 import com.arrive.terminal.domain.model.WeatherModel
+import kotlinx.coroutines.flow.StateFlow
 
 interface DriverManager {
 
+    val weatherFlow: StateFlow<WeatherModel?>
 
     suspend fun saveDriverId(driverId: String)
 
@@ -40,5 +42,5 @@ interface DriverManager {
 
     suspend fun getDefaultRate(driverId: String? = null): Int?
 
-    suspend fun getLastWeather(driverId: String? = null): WeatherModel?
+    fun updateWeather(weather: WeatherModel)
 }

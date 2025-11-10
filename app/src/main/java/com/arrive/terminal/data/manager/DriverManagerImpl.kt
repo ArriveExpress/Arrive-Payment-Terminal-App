@@ -10,6 +10,9 @@ import com.arrive.terminal.domain.model.WeatherModel
 import com.arrive.terminal.domain.repository.DriverIdRepository
 import com.arrive.terminal.domain.repository.DriverRepository
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.internal.synchronized
 import javax.inject.Inject
 
@@ -34,8 +37,8 @@ class DriverManagerImpl @Inject constructor(
     @Volatile
     private var defaultRate: Int? = null
 
-    @Volatile
-    private var lastWeather: WeatherModel? = null
+    private val _weatherFlow = MutableStateFlow<WeatherModel?>(null)
+    override val weatherFlow: StateFlow<WeatherModel?> = _weatherFlow.asStateFlow()
 
     private val lock = Any() // Lock for synchronization
 
@@ -79,13 +82,6 @@ class DriverManagerImpl @Inject constructor(
         return defaultRate
     }
 
-    override suspend fun getLastWeather(driverId: String?): WeatherModel? {
-        if (lastWeather == null) {
-            driverId?.let { getMainScreen(it) }
-        }
-        return lastWeather
-    }
-
     override suspend fun getMainScreen(driverId: String): Result<MainScreenModel> {
         return repository.getMainScreen(driverId)
             .onSuccess {
@@ -96,7 +92,7 @@ class DriverManagerImpl @Inject constructor(
                 lastFeePercent = it.percent
                 lastIsRateEnabled = it.isRateEnabled
                 defaultRate = it.defaultRate
-                lastWeather = it.weather
+                _weatherFlow.value = it.weather
             }
             .map { model ->
                 model.copy(rides = model.rides.takeLast(TAKE_LAST_COUNT))
@@ -131,6 +127,10 @@ class DriverManagerImpl @Inject constructor(
 
     override fun getAuthorizedDriverId(): String? {
         return currentDriverId
+    }
+
+    override fun updateWeather(weather: WeatherModel) {
+        _weatherFlow.value = weather
     }
 
     companion object {
