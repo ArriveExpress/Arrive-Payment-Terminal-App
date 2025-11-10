@@ -11,7 +11,8 @@ data class MainScreenModel(
     val fixed: Double,
     val percent: Double,
     val isRateEnabled: Boolean?,
-    val defaultRate: Int?
+    val defaultRate: Int?,
+    val weather: WeatherModel?
 ) : Parcelable {
 
 }

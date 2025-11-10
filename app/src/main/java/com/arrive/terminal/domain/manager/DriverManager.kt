@@ -5,6 +5,7 @@ import com.arrive.terminal.domain.model.CardModel
 import com.arrive.terminal.domain.model.FlaggedTripModel
 import com.arrive.terminal.domain.model.MainScreenModel
 import com.arrive.terminal.domain.model.RideModel
+import com.arrive.terminal.domain.model.WeatherModel
 
 interface DriverManager {
 
@@ -38,4 +39,6 @@ interface DriverManager {
     suspend fun getIsRateEnabled(driverId: String? = null): Boolean?
 
     suspend fun getDefaultRate(driverId: String? = null): Int?
+
+    suspend fun getLastWeather(driverId: String? = null): WeatherModel?
 }
