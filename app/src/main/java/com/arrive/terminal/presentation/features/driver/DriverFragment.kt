@@ -38,6 +38,9 @@ class DriverFragment : BaseVMFragment<FragmentDriverBinding, DriverViewModel>() 
         )
         mainHost?.apply {
             subscribePaymentEvents()
+            getWeatherUpdateEvent().observe(viewLifecycleOwner) {
+                viewModel.refreshWeather()
+            }
         }
         lifecycle.addObserver(TimeUpdater(binding.date))
 

@@ -38,6 +38,10 @@ class DriverViewModel @Inject constructor(
         }
     }
 
+    fun refreshWeather() {
+        loadWeather()
+    }
+
     fun onMyAccountClick() {
         navigate(navigationResId = R.id.accountLoginFragment)
     }

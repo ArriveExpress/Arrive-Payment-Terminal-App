@@ -1,5 +1,6 @@
 package com.arrive.terminal.presentation.host;
 
+import LiveEvent
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import com.arrive.terminal.R
@@ -33,6 +34,7 @@ class MainViewModel @Inject constructor(
         get() = driverManager.getAuthorizedDriverId().orEmpty()
 
     val onSetupGraph = SafeLiveEvent<Int>()
+    val onWeatherUpdated = LiveEvent()
 
     override fun onViewLoaded() {
         initStrings()
@@ -77,6 +79,11 @@ class MainViewModel @Inject constructor(
 
     fun updateWeather(eventData: WeatherEventNT) {
         val model = WeatherEventMapper(eventData).entity
-        model?.let { driverManager.updateWeather(it) }
+        model?.let {
+            viewModelScope.launch {
+                driverManager.updateWeather(it)
+                onWeatherUpdated.fire()
+            }
+        }
     }
 }

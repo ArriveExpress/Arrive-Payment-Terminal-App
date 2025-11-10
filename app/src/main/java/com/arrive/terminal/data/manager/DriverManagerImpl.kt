@@ -86,6 +86,12 @@ class DriverManagerImpl @Inject constructor(
         return lastWeather
     }
 
+    override suspend fun updateWeather(weather: WeatherModel) {
+        synchronized(lock) {
+            lastWeather = weather
+        }
+    }
+
     override suspend fun getMainScreen(driverId: String): Result<MainScreenModel> {
         return repository.getMainScreen(driverId)
             .onSuccess {

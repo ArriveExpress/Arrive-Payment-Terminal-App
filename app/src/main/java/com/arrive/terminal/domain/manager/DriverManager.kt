@@ -41,4 +41,6 @@ interface DriverManager {
     suspend fun getDefaultRate(driverId: String? = null): Int?
 
     suspend fun getLastWeather(driverId: String? = null): WeatherModel?
+
+    suspend fun updateWeather(weather: WeatherModel)
 }

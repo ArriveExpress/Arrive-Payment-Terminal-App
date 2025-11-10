@@ -1,5 +1,6 @@
 package com.arrive.terminal.presentation.host
 
+import LiveEvent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -176,6 +177,8 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
             }
         }
     }
+
+    override fun getWeatherUpdateEvent(): LiveEvent = viewModel.onWeatherUpdated
 
     private fun initKey() {
         AppExecutors.getInstance().diskIOThread().execute {
