@@ -1,5 +1,6 @@
 package com.arrive.terminal.presentation.host;
 
+import LiveEvent
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import com.arrive.terminal.R
@@ -7,9 +8,11 @@ import com.arrive.terminal.core.data.network.retryWithBackoff
 import com.arrive.terminal.core.ui.base.BaseViewModel
 import com.arrive.terminal.core.ui.livedata.SafeLiveEvent
 import com.arrive.terminal.data.network.response.PayingTerminalEventNT
+import com.arrive.terminal.data.network.response.WeatherEventNT
 import com.arrive.terminal.domain.manager.CustomerManager
 import com.arrive.terminal.domain.manager.DriverManager
 import com.arrive.terminal.domain.manager.PayingTerminalEventMapper
+import com.arrive.terminal.domain.manager.WeatherEventMapper
 import com.arrive.terminal.domain.manager.StringsManager
 import com.arrive.terminal.presentation.features.payment_method.PaymentMethodFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +34,7 @@ class MainViewModel @Inject constructor(
         get() = driverManager.getAuthorizedDriverId().orEmpty()
 
     val onSetupGraph = SafeLiveEvent<Int>()
+    val onWeatherUpdated = LiveEvent()
 
     override fun onViewLoaded() {
         initStrings()
@@ -71,5 +75,15 @@ class MainViewModel @Inject constructor(
                 setPopUpTo(R.id.driverFragment, false)
             }.build()
         )
+    }
+
+    fun updateWeather(eventData: WeatherEventNT) {
+        val model = WeatherEventMapper(eventData).entity
+        model?.let {
+            viewModelScope.launch {
+                driverManager.updateWeather(it)
+                onWeatherUpdated.fire()
+            }
+        }
     }
 }

@@ -151,6 +151,9 @@ dependencies {
     kapt(libs.dagger.hilt.android.compiler)
     kapt(libs.androidx.hilt.compiler)
 
+    // For loading weather icons
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+
     implementation("org.slf4j:slf4j-api:1.7.32")
     implementation("org.slf4j:slf4j-simple:1.7.32")
 

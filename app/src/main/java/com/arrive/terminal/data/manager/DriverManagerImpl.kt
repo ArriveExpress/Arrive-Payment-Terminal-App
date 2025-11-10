@@ -6,6 +6,7 @@ import com.arrive.terminal.domain.model.CardModel
 import com.arrive.terminal.domain.model.FlaggedTripModel
 import com.arrive.terminal.domain.model.MainScreenModel
 import com.arrive.terminal.domain.model.RideModel
+import com.arrive.terminal.domain.model.WeatherModel
 import com.arrive.terminal.domain.repository.DriverIdRepository
 import com.arrive.terminal.domain.repository.DriverRepository
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -32,6 +33,9 @@ class DriverManagerImpl @Inject constructor(
 
     @Volatile
     private var defaultRate: Int? = null
+
+    @Volatile
+    private var lastWeather: WeatherModel? = null
 
     private val lock = Any() // Lock for synchronization
 
@@ -75,6 +79,19 @@ class DriverManagerImpl @Inject constructor(
         return defaultRate
     }
 
+    override suspend fun getLastWeather(driverId: String?): WeatherModel? {
+        if (lastWeather == null) {
+            driverId?.let { getMainScreen(it) }
+        }
+        return lastWeather
+    }
+
+    override suspend fun updateWeather(weather: WeatherModel) {
+        synchronized(lock) {
+            lastWeather = weather
+        }
+    }
+
     override suspend fun getMainScreen(driverId: String): Result<MainScreenModel> {
         return repository.getMainScreen(driverId)
             .onSuccess {
@@ -85,7 +102,7 @@ class DriverManagerImpl @Inject constructor(
                 lastFeePercent = it.percent
                 lastIsRateEnabled = it.isRateEnabled
                 defaultRate = it.defaultRate
-
+                lastWeather = it.weather
             }
             .map { model ->
                 model.copy(rides = model.rides.takeLast(TAKE_LAST_COUNT))

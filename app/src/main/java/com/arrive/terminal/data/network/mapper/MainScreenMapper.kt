@@ -5,6 +5,7 @@ import com.arrive.terminal.data.network.response.MainScreenNT
 import com.arrive.terminal.domain.model.FlaggedTripModel
 import com.arrive.terminal.domain.model.MainScreenModel
 import com.arrive.terminal.domain.model.RideModel
+import com.arrive.terminal.domain.model.WeatherModel
 
 class MainScreenMapper(model: MainScreenNT) : BaseMapper<MainScreenNT>(model) {
 
@@ -29,7 +30,18 @@ class MainScreenMapper(model: MainScreenNT) : BaseMapper<MainScreenNT>(model) {
             fixed = model.fixed ?: 0.0,
             percent = model.percent ?: 0.0,
             isRateEnabled = model.isRateEnabled ?: false,
-            defaultRate = model.defaultRate
+            defaultRate = model.defaultRate,
+            weather = model.weather?.let { weatherNT ->
+                // Only create WeatherModel if both temperature and iconUrl are present
+                if (weatherNT.temperature != null && !weatherNT.iconUrl.isNullOrBlank()) {
+                    WeatherModel(
+                        temperature = weatherNT.temperature,
+                        iconUrl = weatherNT.iconUrl
+                    )
+                } else {
+                    null
+                }
+            }
         )
     }
 }

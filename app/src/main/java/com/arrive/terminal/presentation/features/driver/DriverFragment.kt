@@ -1,6 +1,7 @@
 package com.arrive.terminal.presentation.features.driver;
 
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.arrive.terminal.R
 import com.arrive.terminal.core.model.Constants
@@ -37,6 +38,9 @@ class DriverFragment : BaseVMFragment<FragmentDriverBinding, DriverViewModel>() 
         )
         mainHost?.apply {
             subscribePaymentEvents()
+            getWeatherUpdateEvent().observe(viewLifecycleOwner) {
+                viewModel.refreshWeather()
+            }
         }
         lifecycle.addObserver(TimeUpdater(binding.date))
 
@@ -48,6 +52,13 @@ class DriverFragment : BaseVMFragment<FragmentDriverBinding, DriverViewModel>() 
         driverId.observe(viewLifecycleOwner) {
             binding.driverId.text = it.asString(requireContext())
             binding.driverId.underline()
+        }
+
+        weather.observe(viewLifecycleOwner) { weatherModel ->
+            binding.weatherWidget.isVisible = weatherModel != null
+            weatherModel?.let {
+                binding.weatherWidget.updateWeather(it)
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.arrive.terminal.presentation.host
 
+import LiveEvent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +13,7 @@ import androidx.navigation.findNavController
 import com.arrive.terminal.R
 import com.arrive.terminal.core.data.network.PusherClient
 import com.arrive.terminal.core.data.network.getPayingTerminalChannel
+import com.arrive.terminal.core.data.network.getWeatherChannel
 import com.arrive.terminal.core.ui.base.BaseVMActivity
 import com.arrive.terminal.core.ui.base.LayoutInflate
 import com.arrive.terminal.core.ui.model.StringValue
@@ -19,6 +21,7 @@ import com.arrive.terminal.core.ui.utils.SecretQuit
 import com.arrive.terminal.core.ui.utils.safe
 import com.arrive.terminal.core.ui.utils.setNoLightStatusAndNavigationBar
 import com.arrive.terminal.data.network.response.PayingTerminalEventNT
+import com.arrive.terminal.data.network.response.WeatherEventNT
 import com.arrive.terminal.databinding.ActivityMainBinding
 import com.example.card_payment.utils.AppExecutors
 import com.example.card_payment.utils.DialogUtils
@@ -140,6 +143,14 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
                     }
                 }
             )
+            pusherClient.subscribeGlobal(
+                channelName = getWeatherChannel(viewModel.driverId),
+                listener = { event ->
+                    runOnUiThread {
+                        handleWeatherEvent(event.data)
+                    }
+                }
+            )
         }
     }
 
@@ -154,6 +165,20 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
             }
         }
     }
+
+    private fun handleWeatherEvent(data: String) {
+        val eventData = safe {
+            val gson = GsonBuilder().create()
+            gson.fromJson(data, WeatherEventNT::class.java)
+        }
+        if (eventData != null) {
+            runOnUiThread {
+                viewModel.updateWeather(eventData)
+            }
+        }
+    }
+
+    override fun getWeatherUpdateEvent(): LiveEvent = viewModel.onWeatherUpdated
 
     private fun initKey() {
         AppExecutors.getInstance().diskIOThread().execute {
