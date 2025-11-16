@@ -95,4 +95,6 @@ class MainViewModel @Inject constructor(
             driverManager.updateAdSchedules(models)
         }
     }
+
+    suspend fun getAdSchedules() = driverManager.getLastAdSchedules() ?: emptyList()
 }
