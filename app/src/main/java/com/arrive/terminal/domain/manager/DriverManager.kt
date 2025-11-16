@@ -1,6 +1,7 @@
 package com.arrive.terminal.domain.manager
 
 import com.arrive.terminal.domain.model.AccountModel
+import com.arrive.terminal.domain.model.AdScheduleModel
 import com.arrive.terminal.domain.model.CardModel
 import com.arrive.terminal.domain.model.FlaggedTripModel
 import com.arrive.terminal.domain.model.MainScreenModel
@@ -42,5 +43,9 @@ interface DriverManager {
 
     suspend fun getLastWeather(driverId: String? = null): WeatherModel?
 
+    suspend fun getLastAdSchedules(driverId: String? = null): List<AdScheduleModel>?
+
     suspend fun updateWeather(weather: WeatherModel)
+
+    suspend fun updateAdSchedules(adSchedules: List<AdScheduleModel>)
 }
