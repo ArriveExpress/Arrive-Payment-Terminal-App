@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import com.arrive.terminal.R
 import com.arrive.terminal.core.data.network.PusherClient
+import com.arrive.terminal.core.data.network.getAdSchedulesChannel
 import com.arrive.terminal.core.data.network.getPayingTerminalChannel
 import com.arrive.terminal.core.data.network.getWeatherChannel
 import com.arrive.terminal.core.ui.base.BaseVMActivity
@@ -20,6 +21,7 @@ import com.arrive.terminal.core.ui.model.StringValue
 import com.arrive.terminal.core.ui.utils.SecretQuit
 import com.arrive.terminal.core.ui.utils.safe
 import com.arrive.terminal.core.ui.utils.setNoLightStatusAndNavigationBar
+import com.arrive.terminal.data.network.response.AdSchedulesEventNT
 import com.arrive.terminal.data.network.response.PayingTerminalEventNT
 import com.arrive.terminal.data.network.response.WeatherEventNT
 import com.arrive.terminal.databinding.ActivityMainBinding
@@ -151,6 +153,14 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
                     }
                 }
             )
+            pusherClient.subscribeGlobal(
+                channelName = getAdSchedulesChannel(viewModel.driverId),
+                listener = { event ->
+                    runOnUiThread {
+                        handleAdSchedulesEvent(event.data)
+                    }
+                }
+            )
         }
     }
 
@@ -174,6 +184,18 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
         if (eventData != null) {
             runOnUiThread {
                 viewModel.updateWeather(eventData)
+            }
+        }
+    }
+
+    private fun handleAdSchedulesEvent(data: String) {
+        val eventData = safe {
+            val gson = GsonBuilder().create()
+            gson.fromJson(data, AdSchedulesEventNT::class.java)
+        }
+        if (eventData != null) {
+            runOnUiThread {
+                viewModel.updateAdSchedules(eventData)
             }
         }
     }
