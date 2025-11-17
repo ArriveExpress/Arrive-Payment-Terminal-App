@@ -42,16 +42,20 @@
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="Hello Mendy" />
 
-        <ImageView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:foreground="@drawable/selectable_button_circle"
             android:layout_marginEnd="@dimen/screen_horizontal_padding_normal"
-            android:src="@drawable/ic_logout"
             app:layout_constraintBottom_toBottomOf="@id/title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/title" />
+            app:layout_constraintTop_toTopOf="@id/title"
+            android:text="✕"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            app:backgroundTint="#80000000"
+            app:cornerRadius="28dp"
+        />
 
 
         <LinearLayout
