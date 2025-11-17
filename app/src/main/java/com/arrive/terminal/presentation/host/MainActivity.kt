@@ -117,9 +117,6 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
         super.onPause()
         stopLogoutTimer()
         stopInactivityTimer()
-        if (readyToPaymentEvents) {
-            pusherClient.disconnect()
-        }
     }
 
     override fun onDestroy() {
@@ -193,6 +190,10 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
         }
         if (eventData != null) {
             runOnUiThread {
+                // Close IdleAdActivity if it's showing
+                IdleAdActivity.finishIfShowing()
+                
+                // Navigate to payment method
                 viewModel.navigateToPaymentMethod(eventData)
             }
         }

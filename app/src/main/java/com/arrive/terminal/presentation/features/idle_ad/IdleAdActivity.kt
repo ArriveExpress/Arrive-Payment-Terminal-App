@@ -29,6 +29,8 @@ class IdleAdActivity : AppCompatActivity() {
         private const val EXTRA_AD_SCHEDULES = "extra_ad_schedules"
         private const val AD_DISPLAY_DURATION = 10_000L // 10 seconds per ad
         
+        private var currentInstance: IdleAdActivity? = null
+        
         fun start(context: Context, adSchedules: List<AdScheduleModel>) {
             val intent = Intent(context, IdleAdActivity::class.java).apply {
                 putParcelableArrayListExtra(EXTRA_AD_SCHEDULES, ArrayList(adSchedules))
@@ -36,10 +38,17 @@ class IdleAdActivity : AppCompatActivity() {
             }
             context.startActivity(intent)
         }
+
+        fun finishIfShowing() {
+            currentInstance?.finish()
+            currentInstance = null
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        currentInstance = this
+        
         binding = ActivityIdleAdBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
@@ -124,5 +133,8 @@ class IdleAdActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         autoAdvanceRunnable?.let { handler.removeCallbacks(it) }
+        if (currentInstance == this) {
+            currentInstance = null
+        }
     }
 }
