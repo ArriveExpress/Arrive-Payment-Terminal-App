@@ -31,7 +31,8 @@ class MainScreenNT(
     @SerializedName("fixed") val fixed: Double? = null,
     @SerializedName("review_enabled") val isRateEnabled: Boolean? = null,
     @SerializedName("review_rating_default") val defaultRate: Int? = null,
-    @SerializedName("weather") val weather: WeatherNT? = null
+    @SerializedName("weather") val weather: WeatherNT? = null,
+    @SerializedName("todays_ad_schedules") val todaysAdSchedules: List<AdScheduleNT>? = null,
 ) {
 
     class RideNT(
@@ -52,5 +53,15 @@ class MainScreenNT(
     class WeatherNT(
         @SerializedName("temperature") val temperature: Double? = null,
         @SerializedName("icon_url") val iconUrl: String? = null,
+    )
+
+    class AdScheduleNT(
+        @SerializedName("multiply") val multiply: Int? = null,
+        @SerializedName("click_pay_ad") val ad: AdNT? = null,
+    )
+
+    class AdNT(
+        @SerializedName("id") val id: String? = null,
+        @SerializedName("image_url") val imageUrl: String? = null
     )
 }

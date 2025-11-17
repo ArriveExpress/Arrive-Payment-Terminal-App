@@ -7,8 +7,10 @@ import com.arrive.terminal.R
 import com.arrive.terminal.core.data.network.retryWithBackoff
 import com.arrive.terminal.core.ui.base.BaseViewModel
 import com.arrive.terminal.core.ui.livedata.SafeLiveEvent
+import com.arrive.terminal.data.network.response.AdSchedulesEventNT
 import com.arrive.terminal.data.network.response.PayingTerminalEventNT
 import com.arrive.terminal.data.network.response.WeatherEventNT
+import com.arrive.terminal.domain.manager.AdSchedulesMapper
 import com.arrive.terminal.domain.manager.CustomerManager
 import com.arrive.terminal.domain.manager.DriverManager
 import com.arrive.terminal.domain.manager.PayingTerminalEventMapper
@@ -86,4 +88,13 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun updateAdSchedules(eventData: AdSchedulesEventNT) {
+        val models = AdSchedulesMapper(eventData).entity
+        viewModelScope.launch {
+            driverManager.updateAdSchedules(models)
+        }
+    }
+
+    suspend fun getAdSchedules() = driverManager.getLastAdSchedules() ?: emptyList()
 }

@@ -2,6 +2,7 @@ package com.arrive.terminal.data.manager
 
 import com.arrive.terminal.domain.manager.DriverManager
 import com.arrive.terminal.domain.model.AccountModel
+import com.arrive.terminal.domain.model.AdScheduleModel
 import com.arrive.terminal.domain.model.CardModel
 import com.arrive.terminal.domain.model.FlaggedTripModel
 import com.arrive.terminal.domain.model.MainScreenModel
@@ -36,6 +37,9 @@ class DriverManagerImpl @Inject constructor(
 
     @Volatile
     private var lastWeather: WeatherModel? = null
+
+    @Volatile
+    private var lastAdSchedules: List<AdScheduleModel>? = null
 
     private val lock = Any() // Lock for synchronization
 
@@ -86,9 +90,22 @@ class DriverManagerImpl @Inject constructor(
         return lastWeather
     }
 
+    override suspend fun getLastAdSchedules(driverId: String?): List<AdScheduleModel>? {
+        if (lastAdSchedules == null) {
+            driverId?.let { getMainScreen(it) }
+        }
+        return lastAdSchedules
+    }
+
     override suspend fun updateWeather(weather: WeatherModel) {
         synchronized(lock) {
             lastWeather = weather
+        }
+    }
+
+    override suspend fun updateAdSchedules(adSchedules: List<AdScheduleModel>) {
+        synchronized(lock) {
+            lastAdSchedules = adSchedules
         }
     }
 
@@ -103,6 +120,7 @@ class DriverManagerImpl @Inject constructor(
                 lastIsRateEnabled = it.isRateEnabled
                 defaultRate = it.defaultRate
                 lastWeather = it.weather
+                lastAdSchedules = it.todaysAdSchedules
             }
             .map { model ->
                 model.copy(rides = model.rides.takeLast(TAKE_LAST_COUNT))

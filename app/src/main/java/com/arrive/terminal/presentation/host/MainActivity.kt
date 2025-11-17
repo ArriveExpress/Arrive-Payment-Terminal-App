@@ -9,9 +9,12 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.arrive.terminal.R
+import kotlinx.coroutines.launch
 import com.arrive.terminal.core.data.network.PusherClient
+import com.arrive.terminal.core.data.network.getAdSchedulesChannel
 import com.arrive.terminal.core.data.network.getPayingTerminalChannel
 import com.arrive.terminal.core.data.network.getWeatherChannel
 import com.arrive.terminal.core.ui.base.BaseVMActivity
@@ -20,9 +23,11 @@ import com.arrive.terminal.core.ui.model.StringValue
 import com.arrive.terminal.core.ui.utils.SecretQuit
 import com.arrive.terminal.core.ui.utils.safe
 import com.arrive.terminal.core.ui.utils.setNoLightStatusAndNavigationBar
+import com.arrive.terminal.data.network.response.AdSchedulesEventNT
 import com.arrive.terminal.data.network.response.PayingTerminalEventNT
 import com.arrive.terminal.data.network.response.WeatherEventNT
 import com.arrive.terminal.databinding.ActivityMainBinding
+import com.arrive.terminal.presentation.features.idle_ad.IdleAdActivity
 import com.example.card_payment.utils.AppExecutors
 import com.example.card_payment.utils.DialogUtils
 import com.example.card_payment.utils.ParameterInit
@@ -34,6 +39,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainHost {
+
+    companion object {
+        private const val INACTIVITY_DELAY = 30_000L // 30 seconds
+    }
 
     override val inflater: LayoutInflate<ActivityMainBinding> = ActivityMainBinding::inflate
 
@@ -52,6 +61,9 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
 
     private val logoutHandler = Handler(Looper.getMainLooper())
     private val logoutRunnable = Runnable { onLogout() }
+    
+    private val inactivityHandler = Handler(Looper.getMainLooper())
+    private val inactivityRunnable = Runnable { showIdleAd() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,11 +81,13 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
     override fun onUserInteraction() {
         super.onUserInteraction()
         resetLogoutTimer()
+        resetInactivityTimer()
     }
 
     override fun onResume() {
         super.onResume()
         resetLogoutTimer()
+        resetInactivityTimer()
         if (readyToPaymentEvents && !pusherClient.isConnectedOrConnecting()) {
             pusherClient.connect()
         }
@@ -102,9 +116,7 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
     override fun onPause() {
         super.onPause()
         stopLogoutTimer()
-        if (readyToPaymentEvents) {
-            pusherClient.disconnect()
-        }
+        stopInactivityTimer()
     }
 
     override fun onDestroy() {
@@ -119,6 +131,15 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
             navController.graph = navController.navInflater
                 .inflate(R.navigation.navigation_main)
                 .apply { setStartDestination(startDestinationId) }
+            
+            // Start inactivity timer when navigation is ready
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.id == R.id.driverFragment) {
+                    resetInactivityTimer()
+                } else {
+                    stopInactivityTimer()
+                }
+            }
         }
     }
 
@@ -151,6 +172,14 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
                     }
                 }
             )
+            pusherClient.subscribeGlobal(
+                channelName = getAdSchedulesChannel(viewModel.driverId),
+                listener = { event ->
+                    runOnUiThread {
+                        handleAdSchedulesEvent(event.data)
+                    }
+                }
+            )
         }
     }
 
@@ -161,6 +190,10 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
         }
         if (eventData != null) {
             runOnUiThread {
+                // Close IdleAdActivity if it's showing
+                IdleAdActivity.finishIfShowing()
+                
+                // Navigate to payment method
                 viewModel.navigateToPaymentMethod(eventData)
             }
         }
@@ -174,6 +207,18 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
         if (eventData != null) {
             runOnUiThread {
                 viewModel.updateWeather(eventData)
+            }
+        }
+    }
+
+    private fun handleAdSchedulesEvent(data: String) {
+        val eventData = safe {
+            val gson = GsonBuilder().create()
+            gson.fromJson(data, AdSchedulesEventNT::class.java)
+        }
+        if (eventData != null) {
+            runOnUiThread {
+                viewModel.updateAdSchedules(eventData)
             }
         }
     }
@@ -213,6 +258,31 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>(), MainH
 
     private fun stopLogoutTimer() {
         logoutHandler.removeCallbacks(logoutRunnable)
+    }
+
+    private fun resetInactivityTimer() {
+        // Only show ads on driver screen
+        val currentDestination = navController.currentDestination?.id
+        if (currentDestination != R.id.driverFragment) {
+            stopInactivityTimer()
+            return
+        }
+
+        inactivityHandler.removeCallbacks(inactivityRunnable)
+        inactivityHandler.postDelayed(inactivityRunnable, INACTIVITY_DELAY)
+    }
+
+    private fun stopInactivityTimer() {
+        inactivityHandler.removeCallbacks(inactivityRunnable)
+    }
+
+    private fun showIdleAd() {
+        lifecycleScope.launch {
+            val adSchedules = viewModel.getAdSchedules()
+            if (adSchedules.isNotEmpty()) {
+                IdleAdActivity.start(this@MainActivity, adSchedules)
+            }
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
