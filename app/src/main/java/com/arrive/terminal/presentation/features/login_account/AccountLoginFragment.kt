@@ -106,6 +106,7 @@ class AccountLoginFragment : BaseVMFragment<FragmentAccountLoginBinding, Account
         }
 
         // listener
+        closeButton.onClickSafe { viewModel.navigateBack() }
         cancel.onClickSafe { viewModel.navigateBack() }
         doubleInput.continueAction.onClickSafe {
             viewModel.onLoginClick()
